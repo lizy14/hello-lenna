@@ -23,7 +23,9 @@
     <Content Include="requirements.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="cv233.py" />
     <Compile Include="main.py" />
+    <Compile Include="mainwindow.py" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="Global|ContinuumAnalytics|Anaconda36-64" />
