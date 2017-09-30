@@ -20,10 +20,12 @@
     <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="mainwindow.ui" />
     <Content Include="requirements.txt" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="cv233.py" />
+    <Compile Include="cv233io.py" />
     <Compile Include="main.py" />
     <Compile Include="mainwindow.py" />
   </ItemGroup>

@@ -1,13 +1,14 @@
 from PyQt5.uic import loadUi
 from PyQt5.QtWidgets import QMainWindow, QFileDialog, QGraphicsScene
-from PyQt5.QtGui import QPixmap, QImage
 from PyQt5.QtCore import pyqtSlot, QRectF
 import cv233
+import cv233io
+import numpy
+
 
 class MyMainWindow(QMainWindow):
-    cvImage = None
-    cvImageConverted = None
-    cvImageRotating = None
+    img = None
+    imgRotating = None
 
 
     def __init__(self):
@@ -17,18 +18,8 @@ class MyMainWindow(QMainWindow):
 
     # I/O helpers
 
-    def cvImage_to_QPixmap(self, cvImage):
-        height, width, byteValue = cvImage.shape
-        byteValue = byteValue * width
-        qImage = QImage(cvImage, width, height, byteValue, QImage.Format_RGB888)
-        qImage = qImage.rgbSwapped() # RGB to BGR
-        qPixmap = QPixmap.fromImage(qImage)
-        return qPixmap
-
-
-    def paint(self, cvImage):
-        pixmap = self.cvImage_to_QPixmap(cvImage)
-
+    def paint(self, img):
+        pixmap = cv233io.to_QPixmap(img)
         scene = QGraphicsScene(self)
         scene.addPixmap(pixmap)
         scene.setSceneRect(QRectF(pixmap.rect()))
@@ -39,43 +30,44 @@ class MyMainWindow(QMainWindow):
 
     @pyqtSlot()
     def on_actionOpen_triggered(self):
-        filename = QFileDialog.getOpenFileName(self)[0]
+        filename = '' or QFileDialog.getOpenFileName(self)[0]
         if filename:
-            self.cvImage = cv233.load(filename)
-            self.paint(self.cvImage)
+            self.img = cv233io.load(filename)
+            self.paint(self.img)
 
     @pyqtSlot()
     def on_actionSave_triggered(self):
         filename = QFileDialog.getSaveFileName(self)[0]
         if filename:
-            cv233.save(self.cvImage, filename)
+            cv233io.save(self.img, filename)
 
     def on_sliderRotation_valueChanged(self, degree):
-        self.cvImageRotating = cv233.rotate(self.cvImage, degree)
-        self.paint(self.cvImageRotating)
+        self.imgRotating = cv233.rotate(self.img, degree)
+        self.paint(self.imgRotating)
 
     def on_sliderRotation_sliderReleased(self):
-        self.cvImage = self.cvImageRotating
+        self.img = self.imgRotating
 
     @pyqtSlot()
     def on_btnClockwise_clicked(self):
-        self.cvImage = cv233.transpose(self.cvImage)
-        self.cvImage = cv233.flip(self.cvImage, 1)
-        self.paint(self.cvImage)
+        self.img = cv233.transpose(self.img)
+        self.img = cv233.horizontal_flip(self.img)
+        self.paint(self.img)
     @pyqtSlot()
     def on_btnCounterclockwise_clicked(self):
-        self.cvImage = cv233.transpose(self.cvImage)
-        self.cvImage = cv233.flip(self.cvImage, 0)
-        self.paint(self.cvImage)
+        self.img = cv233.transpose(self.img)
+        self.img = cv233.vertical_flip(self.img)
+        self.paint(self.img)
     @pyqtSlot()
     def on_btn180_clicked(self):
-        self.cvImage = cv233.flip(self.cvImage, -1)
-        self.paint(self.cvImage)
+        self.img = cv233.horizontal_flip(self.img)
+        self.img = cv233.vertical_flip(self.img)
+        self.paint(self.img)
     @pyqtSlot()
     def on_btnVerticalMirror_clicked(self):
-        self.cvImage = cv233.flip(self.cvImage, 0)
-        self.paint(self.cvImage)
+        self.img = cv233.vertical_flip(self.img)
+        self.paint(self.img)
     @pyqtSlot()
     def on_btnHorizontalMirror_clicked(self):
-        self.cvImage = cv233.flip(self.cvImage, 1)
-        self.paint(self.cvImage)
+        self.img = cv233.horizontal_flip(self.img)
+        self.paint(self.img)
