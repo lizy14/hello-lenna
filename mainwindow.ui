@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>tempConverterClass</class>
- <widget class="QMainWindow" name="tempConverterClass">
+ <class>mainWindow</class>
+ <widget class="QMainWindow" name="mainWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -28,14 +28,14 @@
         <item>
          <widget class="QPushButton" name="btnCounterclockwise">
           <property name="text">
-           <string>Rotate 90° Counter-clockwise</string>
+           <string>Rotate 90°Counter-clockwise</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QPushButton" name="btnClockwise">
           <property name="text">
-           <string>Rotate 90° Clockwise</string>
+           <string>Rotate 90°Clockwise</string>
           </property>
          </widget>
         </item>
@@ -48,20 +48,42 @@
         </item>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
           <item>
-           <widget class="QLabel" name="label">
+           <widget class="QPushButton" name="btnRotate">
             <property name="text">
-             <string>Rotate by Angle</string>
+             <string>Rotate</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QSlider" name="sliderRotation">
+           <widget class="QSpinBox" name="spinBox">
             <property name="maximum">
-             <number>90</number>
+             <number>360</number>
             </property>
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
+            <property name="singleStep">
+             <number>15</number>
+            </property>
+            <property name="value">
+             <number>30</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>°Clockwise</string>
             </property>
            </widget>
           </item>
@@ -93,6 +115,13 @@
            </size>
           </property>
          </spacer>
+        </item>
+        <item>
+         <widget class="QProgressBar" name="progressBar">
+          <property name="value">
+           <number>0</number>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>

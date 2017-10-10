@@ -8,13 +8,15 @@ import numpy
 
 class MyMainWindow(QMainWindow):
     img = None
-    imgRotating = None
-
 
     def __init__(self):
         super(MyMainWindow, self).__init__()
         loadUi('mainwindow.ui', self)
-    
+        self.progressBar.hide()
+        MyMainWindow.showMaximized(self)
+
+        self.img = cv233io.load('lenna.tif')
+        self.paint(self.img)
 
     # I/O helpers
 
@@ -41,13 +43,13 @@ class MyMainWindow(QMainWindow):
         if filename:
             cv233io.save(self.img, filename)
 
-    def on_sliderRotation_valueChanged(self, degree):
-        self.imgRotating = cv233.rotate(self.img, degree)
-        self.paint(self.imgRotating)
-
-    def on_sliderRotation_sliderReleased(self):
-        self.img = self.imgRotating
-
+    
+    @pyqtSlot()
+    def on_btnRotate_clicked(self):
+        degree = self.spinBox.value()
+        self.img = cv233.rotate(self.img, degree)
+        self.paint(self.img)
+        
     @pyqtSlot()
     def on_btnClockwise_clicked(self):
         self.img = cv233.transpose(self.img)
