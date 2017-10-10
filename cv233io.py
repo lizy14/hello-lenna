@@ -4,12 +4,15 @@ from PyQt5.QtGui import QPixmap, QImage
 
 
 def load(filename):
-    return cv2.cvtColor(cv2.imread(filename), cv2.COLOR_BGR2RGB).tolist()
+    return cv2.cvtColor(cv2.imread(filename), cv2.COLOR_BGR2RGB)
 
 
 def save(img, filename):
     cv2.imwrite(filename, cv2.cvtColor(numpy.array(img, dtype='uint8'), cv2.COLOR_BGR2RGB))
 
+
+def new_img(w, h):
+    return numpy.zeros((h, w, 3), dtype='uint8')
 
 def to_QPixmap(img):
     img = numpy.array(img, dtype='uint8')

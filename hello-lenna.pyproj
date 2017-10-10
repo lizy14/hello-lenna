@@ -28,6 +28,7 @@
     <Compile Include="cv233io.py" />
     <Compile Include="main.py" />
     <Compile Include="mainwindow.py" />
+    <Compile Include="utils.py" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="Global|ContinuumAnalytics|Anaconda36-64" />
