@@ -12,7 +12,10 @@ def save(img, filename):
 
 
 def new_img(w, h):
-    return numpy.zeros((h, w, 3), dtype='uint8')
+    result = numpy.empty((h, w, 3), dtype='uint8')
+    result.fill(255)
+    return result
+
 
 def to_QPixmap(img):
     img = numpy.array(img, dtype='uint8')
