@@ -15,8 +15,8 @@ def rotate(img, degree):
 
     shape = img.shape
 
-    w = shape[0]
-    h = shape[1]
+    h = shape[0]
+    w = shape[1]
     hw = w // 2 # leading h: half
     hh = h // 2
 
@@ -44,7 +44,8 @@ def rotate(img, degree):
             y = int(_y) + hh
             
             if x >= 0 and x < w and y >= 0 and y < h:
-                img_[y_, x_] = img[y, x]
+                pixel = img[y, x]
+                img_[y_, x_] = pixel
         
     return img_
 
@@ -59,11 +60,20 @@ def horizontal_flip(img):
 @transformation
 def transpose(img):
     shape = img.shape
-    w = shape[0]
-    h = shape[1]
+    h = shape[0]
+    w = shape[1]
     img_ = cv233io.new_img(h, w)
     for y in range(h):
         for x in range(w):
-            img_[y, x] = img[x, y]
+            img_[x, y] = img[y, x]
     return img_
 
+@transformation
+def crop(img, xmin, xmax, ymin, ymax):
+    w_ = xmax - xmin
+    h_ = ymax - ymin
+    img_ = cv233io.new_img(w_, h_)
+    for x in range(xmin, xmax):
+        for y in range(ymin, ymax):
+            img_[y - ymin, x - xmin] = img[y, x]
+    return img_

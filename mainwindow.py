@@ -1,5 +1,5 @@
 from PyQt5.uic import loadUi
-from PyQt5.QtWidgets import QMainWindow, QFileDialog, QGraphicsScene, QWidget
+from PyQt5.QtWidgets import QMainWindow, QFileDialog, QGraphicsScene, QWidget, QApplication
 from PyQt5.QtCore import pyqtSlot, QRectF, QPointF, QEvent, Qt
 from PyQt5.QtGui import QPen, QColor
 import PyQt5
@@ -12,10 +12,11 @@ class MyMainWindow(QMainWindow):
     img = None
 
     crop_rect_graphics_item = None
+    crop_rect = None
     crop_start = None
     crop_end = None
     crop_mouse_down = False
-
+    
     def __init__(self):
         super(MyMainWindow, self).__init__()
         loadUi('mainwindow.ui', self)
@@ -24,12 +25,9 @@ class MyMainWindow(QMainWindow):
 
         self.progressBar.hide()
         MyMainWindow.showMaximized(self)
-
-        self.img = cv233io.load('lenna.tif')
-        self.paint(self.img)
     
     def eventFilter(self, source, event):
-        if source is self.graphicsView.viewport():
+        if source is self.graphicsView.viewport() and self.graphicsView.scene() is not None:
 
             if event.type() == QEvent.MouseMove:
                 def get_crop_rect(start, end):
@@ -42,10 +40,12 @@ class MyMainWindow(QMainWindow):
                 if self.crop_mouse_down:
                     pos = self.graphicsView.mapToScene(event.pos())
                     self.crop_end = pos
+                    self.crop_rect = get_crop_rect(self.crop_start, self.crop_end)
+
                     scene = self.graphicsView.scene()
                     scene.removeItem(self.crop_rect_graphics_item)
                     self.crop_rect_graphics_item = scene.addRect(
-                        get_crop_rect(self.crop_start, self.crop_end), 
+                        self.crop_rect, 
                         QPen(Qt.green, 3, Qt.DashLine, Qt.SquareCap))
 
             elif event.type() == QEvent.MouseButtonPress:
@@ -77,17 +77,20 @@ class MyMainWindow(QMainWindow):
 
     @pyqtSlot()
     def on_actionOpen_triggered(self):
-        filename = '' or QFileDialog.getOpenFileName(self)[0]
+        filename = '' or QFileDialog.getOpenFileName(self, filter=cv233io.LOAD_FILTER)[0]
         if filename:
             self.img = cv233io.load(filename)
             self.paint(self.img)
 
     @pyqtSlot()
     def on_actionSave_triggered(self):
-        filename = QFileDialog.getSaveFileName(self)[0]
+        filename = QFileDialog.getSaveFileName(self, filter=cv233io.SAVE_FILTER)[0]
         if filename:
             cv233io.save(self.img, filename)
 
+    @pyqtSlot()
+    def on_actionExit_triggered(self):
+        QApplication.quit()
     
     @pyqtSlot()
     def on_btnRotate_clicked(self):
@@ -117,4 +120,19 @@ class MyMainWindow(QMainWindow):
     @pyqtSlot()
     def on_btnHorizontalMirror_clicked(self):
         self.img = cv233.horizontal_flip(self.img)
+        self.paint(self.img)
+
+    @pyqtSlot()
+    def on_btnCrop_clicked(self):
+
+        rect = self.crop_rect
+        if rect is None:
+            return
+        self.crop_rect = None
+
+        self.img = cv233.crop(self.img, 
+            int(rect.topLeft().x()), 
+            int(rect.bottomRight().x()), 
+            int(rect.topLeft().y()), 
+            int(rect.bottomRight().y()))
         self.paint(self.img)

@@ -3,6 +3,10 @@ import numpy
 from PyQt5.QtGui import QPixmap, QImage
 
 
+LOAD_FILTER = "OpenCV-supported images (*.bmp *.dib *.jpeg *.jpg *.jpe *.jp2 *.png *.webp *.pbm *.pgm *.ppm *.sr *.ras *.tiff *.tif)"
+SAVE_FILTER = "Windows bitmaps (*.bmp *.dib);;JPEG files (*.jpeg *.jpg *.jpe);;JPEG 2000 files (*.jp2);;Portable Network Graphics (*.png);;WebP (*.webp);;Portable image format (*.pbm *.pgm *.ppm);;Sun rasters (*.sr *.ras);;TIFF files (*.tiff *.tif)"
+
+
 def load(filename):
     return cv2.cvtColor(cv2.imread(filename), cv2.COLOR_BGR2RGB)
 
