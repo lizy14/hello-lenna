@@ -1,4 +1,4 @@
-import math
+from libc cimport math
 import cv233io
 from utils import elapsed_timer
 
@@ -15,37 +15,38 @@ def rotate(img, degree):
 
     shape = img.shape
 
-    h = shape[0]
-    w = shape[1]
-    hw = w // 2 # leading h: half
-    hh = h // 2
+    cdef int h = shape[0]
+    cdef int w = shape[1]
+    cdef int hw = w // 2 # leading h: half
+    cdef int hh = h // 2
 
-    θ = (degree / 360) * 2 * math.pi
-    cosθ = math.cos(θ)
-    sinθ = math.sin(θ)
+    cdef float theta = (degree / 360) * 2 * math.pi
+    cdef float costheta = math.cos(theta)
+    cdef float sintheta = math.sin(theta)
 
     # trailing underscore: after transformation
-    w_ = int(w * cosθ + h * sinθ)
-    h_ = int(w * sinθ + h * cosθ)
-    hw_ = w_ // 2
-    hh_ = h_ // 2
+    cdef int w_ = <int>(w * costheta + h * sintheta)
+    cdef int h_ = <int>(w * sintheta + h * costheta)
+    cdef int hw_ = w_ // 2
+    cdef int hh_ = h_ // 2
 
     img_ = cv233io.new_img(w_, h_)
     
+    cdef int _x_, _y_, x_, y_, _x, _y, x, y
+
     for y_ in range(h_):
         for x_ in range(w_):
             # leading underscore: relative to center
             
             _x_ = x_ - hw_
             _y_ = y_ - hh_
-            _x = _x_ * cosθ + _y_ * sinθ
-            _y = - _x_ * sinθ + _y_ * cosθ
-            x = int(_x) + hw
-            y = int(_y) + hh
+            _x = <int>(_x_ * costheta + _y_ * sintheta)
+            _y = <int>(- _x_ * sintheta + _y_ * costheta)
+            x = _x + hw
+            y = _y + hh
             
             if x >= 0 and x < w and y >= 0 and y < h:
-                pixel = img[y, x]
-                img_[y_, x_] = pixel
+                img_[y_, x_] = img[y, x]
         
     return img_
 
