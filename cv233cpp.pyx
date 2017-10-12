@@ -1,6 +1,7 @@
 from libc cimport math
 import cv233io
 from utils import elapsed_timer
+cimport numpy as cnp
 
 def transformation(func):
     def wrapper(*func_args, **func_kwargs):
@@ -11,7 +12,7 @@ def transformation(func):
     return wrapper
 
 @transformation
-def rotate(img, degree):
+def rotate(cnp.ndarray[cnp.uint8_t, ndim=3] img, float degree):
 
     shape = img.shape
 
@@ -30,9 +31,10 @@ def rotate(img, degree):
     cdef int hw_ = w_ // 2
     cdef int hh_ = h_ // 2
 
-    img_ = cv233io.new_img(w_, h_)
+    cdef cnp.ndarray[cnp.uint8_t, ndim=3] img_ = cv233io.new_img(w_, h_)
     
     cdef int _x_, _y_, x_, y_, _x, _y, x, y
+    cdef int c
 
     for y_ in range(h_):
         for x_ in range(w_):
@@ -46,8 +48,9 @@ def rotate(img, degree):
             y = _y + hh
             
             if x >= 0 and x < w and y >= 0 and y < h:
-                img_[y_, x_] = img[y, x]
-        
+                for c in range(3):
+                    img_[y_, x_, c] = img[y, x, c]
+                
     return img_
 
 @transformation
@@ -59,22 +62,36 @@ def horizontal_flip(img):
     return img[:,::-1]
 
 @transformation
-def transpose(img):
+def transpose(cnp.ndarray[cnp.uint8_t, ndim=3] img):
     shape = img.shape
-    h = shape[0]
-    w = shape[1]
-    img_ = cv233io.new_img(h, w)
+    cdef int h = shape[0]
+    cdef int w = shape[1]
+    cdef cnp.ndarray[cnp.uint8_t, ndim=3] img_ = cv233io.new_img(h, w)
+    cdef int x, y
     for y in range(h):
         for x in range(w):
-            img_[x, y] = img[y, x]
+            for c in range(3):
+                img_[x, y, c] = img[y, x, c]
     return img_
 
 @transformation
-def crop(img, xmin, xmax, ymin, ymax):
-    w_ = xmax - xmin
-    h_ = ymax - ymin
-    img_ = cv233io.new_img(w_, h_)
+def crop(cnp.ndarray[cnp.uint8_t, ndim=3] img, int xmin, int xmax, int ymin, int ymax):
+    shape = img.shape
+    cdef int h = shape[0]
+    cdef int w = shape[1]
+
+    cdef int w_ = xmax - xmin
+    cdef int h_ = ymax - ymin
+    cdef cnp.ndarray[cnp.uint8_t, ndim=3] img_ = cv233io.new_img(w_, h_)
+    
+    cdef int x, y, c
     for x in range(xmin, xmax):
         for y in range(ymin, ymax):
-            img_[y - ymin, x - xmin] = img[y, x]
+            if x >= 0 and x < w and y >= 0 and y < h:
+                for c in range(3):
+                    img_[y - ymin, x - xmin, c] = img[y, x, c]
+            else:
+                for c in range(3):
+                    img_[y - ymin, x - xmin, c] = 255
+                
     return img_
