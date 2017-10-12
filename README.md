@@ -50,8 +50,7 @@ Under menu `Files`.
 * 180 degrees
 
 ### Rorate arbitray degrees (*)
-Key-in number of degrees, then click button `Rotate`.
-Note that a rotation on a 512 x 512 image could take ~10 seconds.
+Key-in number of degrees, then click button `Rotate`. Alternatively, with the slider, drag to preview and release to finalize.
 
 ### Crop recutangularly
 Drag with mouse on the image to specify a rectangular area, then click button `Crop Rectangularly`.

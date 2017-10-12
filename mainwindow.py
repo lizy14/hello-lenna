@@ -10,6 +10,7 @@ import numpy
 
 class MyMainWindow(QMainWindow):
     img = None
+    imgRotating = None
 
     crop_rect_graphics_item = None
     crop_rect = None
@@ -25,6 +26,11 @@ class MyMainWindow(QMainWindow):
 
         self.progressBar.hide()
         MyMainWindow.showMaximized(self)
+        try:
+            self.img = cv233io.load('lenna.tif')
+            self.paint(self.img)
+        except:
+            pass
     
     def eventFilter(self, source, event):
         if source is self.graphicsView.viewport() and self.graphicsView.scene() is not None:
@@ -74,6 +80,13 @@ class MyMainWindow(QMainWindow):
 
 
     # slots
+
+    def on_sliderRotation_valueChanged(self, degree):
+        self.imgRotating = cv233.rotate(self.img, degree)
+        self.paint(self.imgRotating)
+
+    def on_sliderRotation_sliderReleased(self):
+        self.img = self.imgRotating
 
     @pyqtSlot()
     def on_actionOpen_triggered(self):
