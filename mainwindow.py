@@ -75,7 +75,9 @@ class MyMainWindow(QMainWindow):
         pixmap = cv233io.to_QPixmap(img)
         scene = QGraphicsScene(self)
         scene.addPixmap(pixmap)
-        scene.setSceneRect(QRectF(pixmap.rect()))
+        rect = QRectF(pixmap.rect())
+        scene.addRect(rect, QPen(Qt.black, 3, Qt.SolidLine, Qt.SquareCap))
+        scene.setSceneRect(rect)
         self.graphicsView.setScene(scene)
 
 
