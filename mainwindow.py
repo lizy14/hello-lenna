@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QMainWindow, QFileDialog, QGraphicsScene, QWidget, Q
 from PyQt5.QtCore import pyqtSlot, QRectF, QPointF, QEvent, Qt
 from PyQt5.QtGui import QPen, QColor
 import PyQt5
+import pyximport; pyximport.install()
 import cv233cpp as cv233
 import cv233io
 import numpy
