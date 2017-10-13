@@ -33,7 +33,7 @@
     python main.py
     ```
 
-Tested on Windows 10.0.15063.
+Tested on Windows 10 1703, Python 3.6.1, Anaconda 4.4.0, MSC v.1900, 64-bit (AMD64).
 
 ## Assignment 1
 
