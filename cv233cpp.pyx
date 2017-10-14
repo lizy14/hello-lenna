@@ -11,6 +11,38 @@ def transformation(func):
         return result
     return wrapper
 
+
+@transformation
+def changeHsv(cnp.ndarray[cnp.uint8_t, ndim=3] img, float h_degree, float s_percentage, float v_percentage):
+    shape = img.shape
+    cdef int height = shape[0]
+    cdef int width = shape[1]
+
+    cdef cnp.ndarray[cnp.uint8_t, ndim=3] img_ = cv233io.new_img(width, height)
+
+    cdef int x, y
+    
+    cdef float h, s, v
+    for y in range(height):
+        for x in range(width):
+            h = img[y, x, 0] / 180.
+            s = img[y, x, 1] / 255.
+            v = img[y, x, 2] / 255.
+            h += h_degree
+            if h > 1: h -= 1
+
+            s += s_percentage
+            if s > 1: s = 1
+            if s < 0: s = 0
+            v += v_percentage
+            if v > 1: v = 1
+            if v < 0: v = 0
+
+            img_[y, x, 0] = <int>(h * 180)
+            img_[y, x, 1] = <int>(s * 255)
+            img_[y, x, 2] = <int>(v * 255)
+    return img_
+
 @transformation
 def rotate(cnp.ndarray[cnp.uint8_t, ndim=3] img, float degree):
 

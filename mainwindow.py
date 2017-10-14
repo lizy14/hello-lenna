@@ -3,15 +3,17 @@ from PyQt5.QtWidgets import QMainWindow, QFileDialog, QGraphicsScene, QWidget, Q
 from PyQt5.QtCore import pyqtSlot, QRectF, QPointF, QEvent, Qt
 from PyQt5.QtGui import QPen, QColor
 import PyQt5
-import pyximport; pyximport.install()
+
+import pyximport; import numpy; pyximport.install(setup_args={'include_dirs': numpy.get_include()})
+
 import cv233cpp as cv233
 import cv233io
-import numpy
-
 
 class MyMainWindow(QMainWindow):
     img = None
     imgRotating = None
+    imgColorChanging = None
+    imgHsv = None
 
     crop_rect_graphics_item = None
     crop_rect = None
@@ -77,7 +79,10 @@ class MyMainWindow(QMainWindow):
         scene = QGraphicsScene(self)
         scene.addPixmap(pixmap)
         rect = QRectF(pixmap.rect())
-        scene.addRect(rect, QPen(Qt.black, 3, Qt.SolidLine, Qt.SquareCap))
+        if img is self.img:
+            scene.addRect(rect, QPen(Qt.black, 3, Qt.SolidLine, Qt.SquareCap))
+        else:
+            scene.addRect(rect, QPen(Qt.red, 3, Qt.DashLine, Qt.SquareCap))
         scene.setSceneRect(rect)
         self.graphicsView.setScene(scene)
 
@@ -88,8 +93,32 @@ class MyMainWindow(QMainWindow):
         self.imgRotating = cv233.rotate(self.img, degree)
         self.paint(self.imgRotating)
 
-    def on_sliderRotation_sliderReleased(self):
-        self.img = self.imgRotating
+    def change_hsv(self):
+        if self.imgHsv is None:
+            self.imgHsv = cv233io.color(self.img, 'COLOR_RGB2HSV')
+        self.imgColorChanging = cv233.changeHsv(
+            self.imgHsv, 
+            self.sliderH.value() / 360, 
+            self.sliderS.value() / 100, 
+            self.sliderV.value() / 100)
+        self.imgColorChanging = cv233io.color(self.imgColorChanging, 'COLOR_HSV2RGB')
+        self.paint(self.imgColorChanging)
+    def on_sliderH_valueChanged(self, _):
+        if _: self.change_hsv()
+    def on_sliderS_valueChanged(self, _):
+        if _: self.change_hsv()
+    def on_sliderV_valueChanged(self, _):
+        if _: self.change_hsv()
+    
+
+    @pyqtSlot()
+    def on_btnColorApply_clicked(self):
+        self.img = self.imgColorChanging
+        self.imgHsv = None
+        self.sliderH.setValue(0)
+        self.sliderS.setValue(0)
+        self.sliderV.setValue(0)
+        self.paint(self.img)
 
     @pyqtSlot()
     def on_actionOpen_triggered(self):
@@ -110,9 +139,9 @@ class MyMainWindow(QMainWindow):
     
     @pyqtSlot()
     def on_btnRotate_clicked(self):
-        degree = self.spinBox.value()
-        self.img = cv233.rotate(self.img, degree)
+        self.img = self.imgRotating
         self.paint(self.img)
+        self.sliderRotation.setValue(0)
         
     @pyqtSlot()
     def on_btnClockwise_clicked(self):

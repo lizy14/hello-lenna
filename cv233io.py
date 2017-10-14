@@ -15,6 +15,10 @@ def save(img, filename):
     cv2.imwrite(filename, cv2.cvtColor(numpy.array(img, dtype='uint8'), cv2.COLOR_BGR2RGB))
 
 
+def color(img, code):
+    return cv2.cvtColor(img, eval('cv2.'+code))
+
+
 def new_img(w, h):
     result = numpy.empty((h, w, 3), dtype='uint8')
     result.fill(255)

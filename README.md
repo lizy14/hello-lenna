@@ -28,6 +28,17 @@
     python setup.py build_ext --inplace --compiler=msvc
     ```
 
+    * If you see `Unable to find vcvarsall.bat`, you may need to manually find `vcvarsall.bat` and run
+        ```
+        "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x64
+        set DISTUTILS_USE_SDK=1
+        set MSSdk=1
+        ```
+    * If you see `LNK1158: cannot run 'rc.exe'`, you may need to make sure you have `rc.exe`. If you did check "Windows SDK" installing Visual C++, try
+        ```
+        PATH=C:\Program Files (x86)\Windows Kits\8.1\bin\x64;%PATH%
+        ```
+
 * All set. Now bring up the main window by running
     ```
     python main.py
@@ -50,8 +61,17 @@ Under menu `Files`.
 * 180 degrees
 
 ### Rorate arbitray degrees (*)
-Key-in number of degrees, then click button `Rotate`. Alternatively, with the slider, drag to preview and release to finalize.
+Drag the slider, then click `Apply`.
 
 ### Crop recutangularly
 Drag with mouse on the image to specify a rectangular area, then click button `Crop Rectangularly`.
 
+## Assignment 2
+
+### Color Adjustment
+
+Drag the sliders, then click `Apply`.
+
+* hue
+* saturation
+* lightness
