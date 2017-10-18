@@ -95,13 +95,13 @@ class MyMainWindow(QMainWindow):
 
     def change_hsv(self):
         if self.imgHsv is None:
-            self.imgHsv = cv233io.color(self.img, 'COLOR_RGB2HSV')
+            self.imgHsv = cv233.convertRgbToHsv(self.img)
         self.imgColorChanging = cv233.changeHsv(
             self.imgHsv, 
             self.sliderH.value() / 360, 
             self.sliderS.value() / 100, 
             self.sliderV.value() / 100)
-        self.imgColorChanging = cv233io.color(self.imgColorChanging, 'COLOR_HSV2RGB')
+        self.imgColorChanging = cv233.convertHsvToRgb(self.imgColorChanging)
         self.paint(self.imgColorChanging)
     def on_sliderH_valueChanged(self, _):
         if _: self.change_hsv()

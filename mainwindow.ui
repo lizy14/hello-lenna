@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>916</width>
-    <height>721</height>
+    <width>980</width>
+    <height>770</height>
    </rect>
   </property>
   <property name="contextMenuPolicy">
@@ -17,7 +17,7 @@
    <string>Hello, Lenna</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="verticalLayout_6">
+   <layout class="QVBoxLayout" name="verticalLayout_8">
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,0">
       <item>
@@ -30,193 +30,286 @@
       <item>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <widget class="QGroupBox" name="groupBox_3">
-          <property name="title">
-           <string>Mirroring</string>
+         <widget class="QToolBox" name="toolBox">
+          <property name="currentIndex">
+           <number>2</number>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout_4">
-           <item>
-            <widget class="QPushButton" name="btnHorizontalMirror">
-             <property name="text">
-              <string>Mirror Horizontally </string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="btnVerticalMirror">
-             <property name="text">
-              <string>Mirror Vertically</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
+          <widget class="QWidget" name="page_5">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>264</width>
+             <height>483</height>
+            </rect>
+           </property>
+           <attribute name="label">
+            <string>Basic (Assignment 1)</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_6">
+            <item>
+             <widget class="QGroupBox" name="groupBox_3">
+              <property name="title">
+               <string>Mirroring</string>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_4">
+               <item>
+                <widget class="QPushButton" name="btnHorizontalMirror">
+                 <property name="text">
+                  <string>Mirror Horizontally </string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="btnVerticalMirror">
+                 <property name="text">
+                  <string>Mirror Vertically</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QGroupBox" name="groupBox_4">
+              <property name="title">
+               <string>Cropping</string>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_5">
+               <item>
+                <widget class="QPushButton" name="btnCrop">
+                 <property name="text">
+                  <string>Crop Rectangularly</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QGroupBox" name="groupBox_2">
+              <property name="title">
+               <string>Rotation</string>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_3">
+               <item>
+                <widget class="QPushButton" name="btnCounterclockwise">
+                 <property name="text">
+                  <string>90°Counter-clockwise</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="btnClockwise">
+                 <property name="text">
+                  <string>90°Clockwise</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="btn180">
+                 <property name="text">
+                  <string>180°</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_2">
+                 <property name="leftMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>0</number>
+                 </property>
+                 <item>
+                  <widget class="QSlider" name="sliderRotation">
+                   <property name="maximum">
+                    <number>90</number>
+                   </property>
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="btnRotate">
+                   <property name="text">
+                    <string>Apply</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="page_6">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>264</width>
+             <height>483</height>
+            </rect>
+           </property>
+           <attribute name="label">
+            <string>Color Space (Assignment 2)</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_7">
+            <item>
+             <widget class="QGroupBox" name="groupBox">
+              <property name="title">
+               <string>Color Adjustment</string>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_2">
+               <item>
+                <layout class="QFormLayout" name="formLayout">
+                 <item row="0" column="0">
+                  <widget class="QLabel" name="label_2">
+                   <property name="text">
+                    <string>Hue</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="1">
+                  <widget class="QSlider" name="sliderH">
+                   <property name="maximum">
+                    <number>360</number>
+                   </property>
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="0">
+                  <widget class="QLabel" name="label_3">
+                   <property name="text">
+                    <string>Saturation</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="1">
+                  <widget class="QSlider" name="sliderS">
+                   <property name="minimum">
+                    <number>-100</number>
+                   </property>
+                   <property name="maximum">
+                    <number>100</number>
+                   </property>
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="0">
+                  <widget class="QLabel" name="label_4">
+                   <property name="text">
+                    <string>Lightness</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="1">
+                  <widget class="QSlider" name="sliderV">
+                   <property name="minimum">
+                    <number>-100</number>
+                   </property>
+                   <property name="maximum">
+                    <number>100</number>
+                   </property>
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <widget class="QPushButton" name="btnColorApply">
+                 <property name="text">
+                  <string>Apply Color Adjustment</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btnColorHalftone">
+              <property name="text">
+               <string>Color Halftone</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_3">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="page">
+           <attribute name="label">
+            <string>Enhancement (Assignment 3)</string>
+           </attribute>
+          </widget>
+          <widget class="QWidget" name="page_2">
+           <attribute name="label">
+            <string>Frequency Filter (Assignment 4)</string>
+           </attribute>
+          </widget>
+          <widget class="QWidget" name="page_3">
+           <attribute name="label">
+            <string>Spacial Filter (Assignment 5)</string>
+           </attribute>
+          </widget>
+          <widget class="QWidget" name="page_4">
+           <attribute name="label">
+            <string>Portrait Beautify (Assignment 6)</string>
+           </attribute>
+          </widget>
          </widget>
         </item>
         <item>
-         <widget class="QGroupBox" name="groupBox_4">
-          <property name="title">
-           <string>Cropping</string>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_5">
-           <item>
-            <widget class="QPushButton" name="btnCrop">
-             <property name="text">
-              <string>Crop Rectangularly</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item>
-         <widget class="QGroupBox" name="groupBox_2">
-          <property name="title">
-           <string>Rotation</string>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_3">
-           <item>
-            <widget class="QPushButton" name="btnCounterclockwise">
-             <property name="text">
-              <string>90°Counter-clockwise</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="btnClockwise">
-             <property name="text">
-              <string>90°Clockwise</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="btn180">
-             <property name="text">
-              <string>180°</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_2">
-             <property name="leftMargin">
-              <number>0</number>
-             </property>
-             <property name="topMargin">
-              <number>0</number>
-             </property>
-             <property name="rightMargin">
-              <number>0</number>
-             </property>
-             <property name="bottomMargin">
-              <number>0</number>
-             </property>
-             <item>
-              <widget class="QSlider" name="sliderRotation">
-               <property name="maximum">
-                <number>90</number>
-               </property>
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="btnRotate">
-               <property name="text">
-                <string>Apply</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item>
-         <widget class="QGroupBox" name="groupBox">
-          <property name="title">
-           <string>Color Adjustment</string>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_2">
-           <item>
-            <layout class="QFormLayout" name="formLayout">
-             <item row="0" column="0">
-              <widget class="QLabel" name="label_2">
-               <property name="text">
-                <string>Hue</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="QSlider" name="sliderH">
-               <property name="maximum">
-                <number>360</number>
-               </property>
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="label_3">
-               <property name="text">
-                <string>Saturation</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="1">
-              <widget class="QSlider" name="sliderS">
-               <property name="minimum">
-                <number>-100</number>
-               </property>
-               <property name="maximum">
-                <number>100</number>
-               </property>
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="0">
-              <widget class="QLabel" name="label_4">
-               <property name="text">
-                <string>Lightness</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="1">
-              <widget class="QSlider" name="sliderV">
-               <property name="minimum">
-                <number>-100</number>
-               </property>
-               <property name="maximum">
-                <number>100</number>
-               </property>
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <widget class="QPushButton" name="btnColorApply">
-             <property name="text">
-              <string>Apply Color Adjustment</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item>
-         <spacer name="verticalSpacer">
+         <spacer name="horizontalSpacer">
           <property name="orientation">
-           <enum>Qt::Vertical</enum>
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Minimum</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>20</width>
-            <height>40</height>
+            <width>300</width>
+            <height>0</height>
            </size>
           </property>
          </spacer>
@@ -239,7 +332,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>916</width>
+     <width>980</width>
      <height>26</height>
     </rect>
    </property>

@@ -75,3 +75,7 @@ Drag the sliders, then click `Apply`.
 * hue
 * saturation
 * lightness
+
+### Color Halftone
+
+

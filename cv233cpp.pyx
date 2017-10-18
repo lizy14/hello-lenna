@@ -11,30 +11,111 @@ def transformation(func):
         return result
     return wrapper
 
+@transformation
+def colorHalftone(cnp.ndarray[cnp.uint8_t, ndim=3] img):
+    pass
 
 @transformation
-def changeHsv(cnp.ndarray[cnp.uint8_t, ndim=3] img, float h_degree, float s_percentage, float v_percentage):
+def convertRgbToHsv(cnp.ndarray[cnp.uint8_t, ndim=3] img):
     shape = img.shape
     cdef int height = shape[0]
     cdef int width = shape[1]
-
     cdef cnp.ndarray[cnp.uint8_t, ndim=3] img_ = cv233io.new_img(width, height)
 
-    cdef int x, y
-    
     cdef float h, s, v
+    cdef float r, g, b, min_, max_
+    cdef int x, y
     for y in range(height):
         for x in range(width):
-            h = img[y, x, 0] / 180.
+            r = img[y, x, 0] / 255.
+            g = img[y, x, 1] / 255.
+            b = img[y, x, 2] / 255.
+            
+            max_ = max(r, g, b)
+            min_ = min(r, g, b)
+            v = max_
+            s = ((v - min_) / v) if v != 0 else 0
+            if v == r:
+                h = 60 * (g - b) / (v - min_)
+            elif v == g:
+                h = 120 + 60 * (b - r) / (v - min_)
+            elif v == b:
+                h = 240 + 60 * (r - g) / (v - min_)
+            if h < 0:
+                h += 360
+            img_[y, x, 0] = <int>(h / 2.)
+            img_[y, x, 1] = <int>(s * 255)
+            img_[y, x, 2] = <int>(v * 255)
+    return img_
+
+
+@transformation
+def convertHsvToRgb(cnp.ndarray[cnp.uint8_t, ndim=3] img):
+    shape = img.shape
+    cdef int height = shape[0]
+    cdef int width = shape[1]
+    cdef cnp.ndarray[cnp.uint8_t, ndim=3] img_ = cv233io.new_img(width, height)
+
+    cdef float h, s, v
+    cdef float r, g, b
+    cdef float f, p, q, t
+    cdef float h60, h60f
+    cdef int hi
+    cdef int x, y
+    for y in range(height):
+        for x in range(width):
+            h = img[y, x, 0] * 2.
             s = img[y, x, 1] / 255.
             v = img[y, x, 2] / 255.
-            h += h_degree
+            
+            h60 = h / 60.0
+            h60f = math.floor(h60)
+            hi = <int>h60f % 6
+            f = h60 - h60f
+            p = v * (1 - s)
+            q = v * (1 - f * s)
+            t = v * (1 - (1 - f) * s)
+            
+            r, g, b = 0, 0, 0
+            if hi == 0: 
+                r, g, b = v, t, p
+            elif hi == 1: 
+                r, g, b = q, v, p
+            elif hi == 2: 
+                r, g, b = p, v, t
+            elif hi == 3: 
+                r, g, b = p, q, v
+            elif hi == 4: 
+                r, g, b = t, p, v
+            elif hi == 5: 
+                r, g, b = v, p, q
+            
+            img_[y, x, 0] = <int>(r * 255)
+            img_[y, x, 1] = <int>(g * 255)
+            img_[y, x, 2] = <int>(b * 255)
+    return img_
+
+@transformation
+def changeHsv(cnp.ndarray[cnp.uint8_t, ndim=3] img, float h_, float s_, float v_):
+    shape = img.shape
+    cdef int height = shape[0]
+    cdef int width = shape[1]
+    cdef cnp.ndarray[cnp.uint8_t, ndim=3] img_ = cv233io.new_img(width, height)
+    
+    cdef float h, s, v
+    cdef int x, y
+    for y in range(height):
+        for x in range(width):
+            h = img[y, x, 0] / 180. # / 2 * 360
+            s = img[y, x, 1] / 255.
+            v = img[y, x, 2] / 255.
+            h += h_
             if h > 1: h -= 1
 
-            s += s_percentage
+            s += s_
             if s > 1: s = 1
             if s < 0: s = 0
-            v += v_percentage
+            v += v_
             if v > 1: v = 1
             if v < 0: v = 0
 
@@ -60,21 +141,17 @@ def rotate(cnp.ndarray[cnp.uint8_t, ndim=3] img, float degree):
     # trailing underscore: after transformation
     cdef int w_ = <int>(w * costheta + h * sintheta)
     cdef int h_ = <int>(w * sintheta + h * costheta)
+    cdef cnp.ndarray[cnp.uint8_t, ndim=3] img_ = cv233io.new_img(w_, h_)
     cdef float hw_ = w_ / 2.
     cdef float hh_ = h_ / 2.
-
-    cdef cnp.ndarray[cnp.uint8_t, ndim=3] img_ = cv233io.new_img(w_, h_)
-
-    cdef int c    
-    cdef int x_, y_
-    cdef float x, y
+    
     cdef int x1, x2, y1, y2
     cdef int q11, q12, q21, q22
     cdef float q_1, q_2, q__
-
+    cdef float x, y
+    cdef int x_, y_, c
     for y_ in range(h_):
         for x_ in range(w_):
-            
             x = + (x_ - hw_) * costheta + (y_ - hh_) * sintheta + hw
             y = - (x_ - hw_) * sintheta + (y_ - hh_) * costheta + hh
 
