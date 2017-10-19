@@ -13,6 +13,7 @@ class MyMainWindow(QMainWindow):
     img = None
     imgRotating = None
     imgColorChanging = None
+    imgColorHalftone = None
     imgHsv = None
 
     crop_rect_graphics_item = None
@@ -118,6 +119,27 @@ class MyMainWindow(QMainWindow):
         self.sliderH.setValue(0)
         self.sliderS.setValue(0)
         self.sliderV.setValue(0)
+        self.paint(self.img)
+
+    def color_halftone(self):
+        spacing = self.sliderHalftoneSpacing.value() * 4
+        if spacing >= 4:
+            self.imgColorHalftone = cv233.colorHalftone(self.img, spacing)
+            self.paint(self.imgColorHalftone)
+        else:
+            self.paint(self.img)
+        
+    def on_sliderHalftoneGamma_valueChanged(self, _):
+        self.color_halftone()
+    def on_sliderHalftoneSpacing_valueChanged(self, _):
+        self.color_halftone()
+    def on_sliderV_valueChanged(self, _):
+        self.color_halftone()
+    
+
+    @pyqtSlot()
+    def on_btnColorApply_clicked(self):
+        self.img = self.imgColorHalftone
         self.paint(self.img)
 
     @pyqtSlot()

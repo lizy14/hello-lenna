@@ -17,7 +17,7 @@
    <string>Hello, Lenna</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="verticalLayout_8">
+   <layout class="QHBoxLayout" name="horizontalLayout_4">
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,0">
       <item>
@@ -32,15 +32,15 @@
         <item>
          <widget class="QToolBox" name="toolBox">
           <property name="currentIndex">
-           <number>2</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="page_5">
            <property name="geometry">
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>264</width>
-             <height>483</height>
+             <width>300</width>
+             <height>476</height>
             </rect>
            </property>
            <attribute name="label">
@@ -169,8 +169,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>264</width>
-             <height>483</height>
+             <width>300</width>
+             <height>476</height>
             </rect>
            </property>
            <attribute name="label">
@@ -255,10 +255,52 @@
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="btnColorHalftone">
-              <property name="text">
-               <string>Color Halftone</string>
+             <widget class="QGroupBox" name="groupBox_5">
+              <property name="title">
+               <string>Color Hanftone</string>
               </property>
+              <layout class="QVBoxLayout" name="verticalLayout_9">
+               <item>
+                <layout class="QFormLayout" name="formLayout_2">
+                 <item row="0" column="0">
+                  <widget class="QLabel" name="label_5">
+                   <property name="text">
+                    <string>Spacing</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="1">
+                  <widget class="QSlider" name="sliderHalftoneSpacing">
+                   <property name="minimum">
+                    <number>0</number>
+                   </property>
+                   <property name="maximum">
+                    <number>8</number>
+                   </property>
+                   <property name="singleStep">
+                    <number>1</number>
+                   </property>
+                   <property name="pageStep">
+                    <number>1</number>
+                   </property>
+                   <property name="value">
+                    <number>0</number>
+                   </property>
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <widget class="QPushButton" name="btnColorHalftone">
+                 <property name="text">
+                  <string>Apply Color Halftone</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </widget>
             </item>
             <item>
@@ -277,21 +319,53 @@
            </layout>
           </widget>
           <widget class="QWidget" name="page">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>300</width>
+             <height>476</height>
+            </rect>
+           </property>
            <attribute name="label">
             <string>Enhancement (Assignment 3)</string>
            </attribute>
           </widget>
           <widget class="QWidget" name="page_2">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>300</width>
+             <height>476</height>
+            </rect>
+           </property>
            <attribute name="label">
             <string>Frequency Filter (Assignment 4)</string>
            </attribute>
           </widget>
           <widget class="QWidget" name="page_3">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>300</width>
+             <height>476</height>
+            </rect>
+           </property>
            <attribute name="label">
             <string>Spacial Filter (Assignment 5)</string>
            </attribute>
           </widget>
           <widget class="QWidget" name="page_4">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>300</width>
+             <height>476</height>
+            </rect>
+           </property>
            <attribute name="label">
             <string>Portrait Beautify (Assignment 6)</string>
            </attribute>
