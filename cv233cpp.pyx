@@ -249,7 +249,7 @@ def transpose(array_t[uint8_t, ndim=3] img):
     return img_
 
 @transformation
-def crop(array_t[uint8_t, ndim=3] img, int xmin, int xmax, int ymin, int ymax):
+def crop(array_t[uint8_t, ndim=3] img, int xmin, int xmax, int ymin, int ymax, int circular=0):
     shape = img.shape
     cdef int h = shape[0]
     cdef int w = shape[1]
@@ -257,15 +257,21 @@ def crop(array_t[uint8_t, ndim=3] img, int xmin, int xmax, int ymin, int ymax):
     cdef int w_ = xmax - xmin
     cdef int h_ = ymax - ymin
     cdef array_t[uint8_t, ndim=3] img_ = cv233io.new_img(w_, h_)
-    
+    cdef float cx = (xmax + xmin) / 2
+    cdef float cy = (ymax + ymin) / 2
+    cdef float hh = h_ / 2
+    cdef float hw = w_ / 2
+
     cdef int x, y, c
+
     for x in range(xmin, xmax):
         for y in range(ymin, ymax):
-            if x >= 0 and x < w and y >= 0 and y < h:
+            if x >= 0 and x < w and y >= 0 and y < h and (
+                not circular or (x - cx) ** 2 / hw ** 2 + (y - cy) ** 2 / hh ** 2 < 1.):
                 for c in range(3):
                     img_[y - ymin, x - xmin, c] = img[y, x, c]
             else:
                 for c in range(3):
                     img_[y - ymin, x - xmin, c] = 255
-                
+
     return img_

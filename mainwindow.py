@@ -185,9 +185,7 @@ class MyMainWindow(QMainWindow):
         self.img = cv233.horizontal_flip(self.img)
         self.paint(self.img)
 
-    @pyqtSlot()
-    def on_btnCrop_clicked(self):
-
+    def crop(self, circular=False):
         rect = self.crop_rect
         if rect is None:
             return
@@ -197,5 +195,14 @@ class MyMainWindow(QMainWindow):
             int(rect.topLeft().x()), 
             int(rect.bottomRight().x()), 
             int(rect.topLeft().y()), 
-            int(rect.bottomRight().y()))
+            int(rect.bottomRight().y()),
+            1 if circular else 0)
         self.paint(self.img)
+
+    @pyqtSlot()
+    def on_btnCropRect_clicked(self):
+        self.crop(circular=False)
+    
+    @pyqtSlot()
+    def on_btnCropCirc_clicked(self):
+        self.crop(circular=True)

@@ -77,9 +77,16 @@
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_5">
                <item>
-                <widget class="QPushButton" name="btnCrop">
+                <widget class="QPushButton" name="btnCropRect">
                  <property name="text">
                   <string>Crop Rectangularly</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="btnCropCirc">
+                 <property name="text">
+                  <string>Crop Circularly</string>
                  </property>
                 </widget>
                </item>

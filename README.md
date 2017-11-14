@@ -63,8 +63,10 @@ Under menu `Files`.
 ### Rorate arbitray degrees (*)
 Drag the slider, then click `Apply`.
 
-### Crop recutangularly
-Drag with mouse on the image to specify a rectangular area, then click button `Crop Rectangularly`.
+### Crop 
+Drag with mouse on the image to specify the area to keep, then click `Crop` buttons.
+* rectangularly
+* circularly
 
 ## Assignment 2
 
