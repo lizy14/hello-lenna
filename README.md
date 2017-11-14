@@ -78,4 +78,4 @@ Drag the sliders, then click `Apply`.
 
 ### Color Halftone
 
-
+Drag the slider, then click `Apply`.

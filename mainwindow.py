@@ -25,7 +25,7 @@ class MyMainWindow(QMainWindow):
     def __init__(self):
         super(MyMainWindow, self).__init__()
         loadUi('mainwindow.ui', self)
-
+        
         self.graphicsView.viewport().installEventFilter(self)
 
         self.progressBar.hide()
@@ -129,16 +129,12 @@ class MyMainWindow(QMainWindow):
         else:
             self.paint(self.img)
         
-    def on_sliderHalftoneGamma_valueChanged(self, _):
-        self.color_halftone()
     def on_sliderHalftoneSpacing_valueChanged(self, _):
-        self.color_halftone()
-    def on_sliderV_valueChanged(self, _):
         self.color_halftone()
     
 
     @pyqtSlot()
-    def on_btnColorApply_clicked(self):
+    def on_btnColorHalftone_clicked(self):
         self.img = self.imgColorHalftone
         self.paint(self.img)
 

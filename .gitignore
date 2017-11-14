@@ -3,8 +3,9 @@
 *.png
 .vs/
 __pycache__/
-# Cython Generated
+*.pyc
 *.c
 *.pyd
+*.so
 build/
 .vscode/
