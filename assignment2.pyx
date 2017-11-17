@@ -44,7 +44,7 @@ def colorHalftone(array_t[uint8_t, ndim=3] img, int spacing=8, float gamma=.5):
                 r = value_to_radius(img[y, x, 1], spacing, gamma)
                 for dy in range(-r, r):
                     for dx in range(-r, r):
-                        if dy * dy + dx * dx <= r * r + 1:
+                        if dy * dy + dx * dx <= r * r:
                             if x+dx >= 0 and x+dx < width and y+dy >= 0 and y+dy < height:
                                 img_[y+dy, x+dx, 1] = img[y+dy, x+dx, 1]
 

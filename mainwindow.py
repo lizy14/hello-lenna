@@ -124,7 +124,6 @@ class MyMainWindow(QMainWindow):
 
     @pyqtSlot(int)
     def on_sliderHalftoneSpacing_valueChanged(self, spacing):
-        spacing = spacing * 4
         if spacing >= 4:
             self.imgColorHalftone = colorHalftone(self.img, spacing)
             self.paint(self.imgColorHalftone)
