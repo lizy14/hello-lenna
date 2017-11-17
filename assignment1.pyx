@@ -1,3 +1,6 @@
+'''
+Assignment 1, basic geometrical transformations
+'''
 from libc cimport math
 import cv233io
 from utils import elapsed_timer, transformation

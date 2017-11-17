@@ -1,3 +1,6 @@
+'''
+Assignment 2, color space related transformations
+'''
 from libc cimport math
 import cv233io
 from utils import transformation

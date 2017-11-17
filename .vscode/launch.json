@@ -18,7 +18,8 @@
                 "WaitOnAbnormalExit",
                 "WaitOnNormalExit",
                 "RedirectOutput"
-            ]
+            ],
+            "preLaunchTask": "build"
         }
     ]
 }

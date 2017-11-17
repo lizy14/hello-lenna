@@ -30,7 +30,6 @@ class MyMainWindow(QMainWindow):
         self.connect_signals()
         self.graphicsView.viewport().installEventFilter(self)
 
-        self.progressBar.hide()
         self.showMaximized()
 
         try:
