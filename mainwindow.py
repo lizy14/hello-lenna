@@ -9,7 +9,7 @@ import pyximport; import numpy; pyximport.install(setup_args={'include_dirs': nu
 import cv233io
 from assignment1 import *
 from assignment2 import *
-
+from assignment3 import *
 
 class MyMainWindow(QMainWindow):
     img = None
@@ -31,11 +31,16 @@ class MyMainWindow(QMainWindow):
 
         self.showMaximized()
 
+        self.img = cv233io.load('lenna.tif')
+        self.paint(self.img)
+        print(histogram(self.img))
+        return 
+
         try:
             self.img = cv233io.load('lenna.tif')
             self.paint(self.img)
         except:
-            pass
+            pass        
 
     def eventFilter(self, source, event):
         if source is self.graphicsView.viewport() and self.graphicsView.scene() is not None:
