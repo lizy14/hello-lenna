@@ -264,7 +264,7 @@
             <item>
              <widget class="QGroupBox" name="groupBox_5">
               <property name="title">
-               <string>Color Hanftone</string>
+               <string>Color Halftone</string>
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_9">
                <item>
