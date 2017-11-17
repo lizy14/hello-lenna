@@ -5,7 +5,6 @@ from PyQt5.QtGui import QPen, QColor
 import PyQt5
 
 import pyximport; import numpy; pyximport.install(setup_args={'include_dirs': numpy.get_include()})
-
 import cv233cpp as cv233
 import cv233io
 
@@ -191,7 +190,8 @@ class MyMainWindow(QMainWindow):
             return
         self.crop_rect = None
 
-        self.img = cv233.crop(self.img, 
+        self.img = cv233.crop(
+            self.img, 
             int(rect.topLeft().x()), 
             int(rect.bottomRight().x()), 
             int(rect.topLeft().y()), 
