@@ -5,8 +5,10 @@ from PyQt5.QtGui import QPen, QColor
 import PyQt5
 
 import pyximport; import numpy; pyximport.install(setup_args={'include_dirs': numpy.get_include()})
-import cv233cpp as cv233
+
 import cv233io
+from assignment1 import *
+from assignment2 import *
 
 
 class MyMainWindow(QMainWindow):
@@ -29,7 +31,7 @@ class MyMainWindow(QMainWindow):
         self.graphicsView.viewport().installEventFilter(self)
 
         self.progressBar.hide()
-        MyMainWindow.showMaximized(self)
+        self.showMaximized()
 
         try:
             self.img = cv233io.load('lenna.tif')
@@ -97,19 +99,19 @@ class MyMainWindow(QMainWindow):
 
     @pyqtSlot(int)
     def on_sliderRotation_valueChanged(self, degree):
-        self.imgRotating = cv233.rotate(self.img, degree)
+        self.imgRotating = rotate(self.img, degree)
         self.paint(self.imgRotating)
 
     @pyqtSlot()
     def change_hsv(self):
         if self.imgHsv is None:
-            self.imgHsv = cv233.convertRgbToHsv(self.img)
-        self.imgColorChanging = cv233.changeHsv(
+            self.imgHsv = convertRgbToHsv(self.img)
+        self.imgColorChanging = changeHsv(
             self.imgHsv,
             self.sliderH.value() / 360,
             self.sliderS.value() / 100,
             self.sliderV.value() / 100)
-        self.imgColorChanging = cv233.convertHsvToRgb(self.imgColorChanging)
+        self.imgColorChanging = convertHsvToRgb(self.imgColorChanging)
         self.paint(self.imgColorChanging)
 
     @pyqtSlot()
@@ -125,7 +127,7 @@ class MyMainWindow(QMainWindow):
     def on_sliderHalftoneSpacing_valueChanged(self, spacing):
         spacing = spacing * 4
         if spacing >= 4:
-            self.imgColorHalftone = cv233.colorHalftone(self.img, spacing)
+            self.imgColorHalftone = colorHalftone(self.img, spacing)
             self.paint(self.imgColorHalftone)
         else:
             self.paint(self.img)
@@ -158,30 +160,30 @@ class MyMainWindow(QMainWindow):
 
     @pyqtSlot()
     def on_btnClockwise_clicked(self):
-        self.img = cv233.transpose(self.img)
-        self.img = cv233.horizontal_flip(self.img)
+        self.img = transpose(self.img)
+        self.img = horizontal_flip(self.img)
         self.paint(self.img)
 
     @pyqtSlot()
     def on_btnCounterclockwise_clicked(self):
-        self.img = cv233.transpose(self.img)
-        self.img = cv233.vertical_flip(self.img)
+        self.img = transpose(self.img)
+        self.img = vertical_flip(self.img)
         self.paint(self.img)
 
     @pyqtSlot()
     def on_btn180_clicked(self):
-        self.img = cv233.horizontal_flip(self.img)
-        self.img = cv233.vertical_flip(self.img)
+        self.img = horizontal_flip(self.img)
+        self.img = vertical_flip(self.img)
         self.paint(self.img)
 
     @pyqtSlot()
     def on_btnVerticalMirror_clicked(self):
-        self.img = cv233.vertical_flip(self.img)
+        self.img = vertical_flip(self.img)
         self.paint(self.img)
 
     @pyqtSlot()
     def on_btnHorizontalMirror_clicked(self):
-        self.img = cv233.horizontal_flip(self.img)
+        self.img = horizontal_flip(self.img)
         self.paint(self.img)
 
     def crop(self, circular=False):
@@ -190,7 +192,7 @@ class MyMainWindow(QMainWindow):
             return
         self.crop_rect = None
 
-        self.img = cv233.crop(
+        self.img = crop(
             self.img,
             int(rect.topLeft().x()),
             int(rect.bottomRight().x()),
