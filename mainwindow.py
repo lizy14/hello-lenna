@@ -16,7 +16,6 @@ class MyMainWindow(QMainWindow):
     imgRotating = None
     imgColorChanging = None
     imgColorHalftone = None
-    imgHsv = None
 
     crop_rect_graphics_item = None
     crop_rect = None
@@ -103,10 +102,9 @@ class MyMainWindow(QMainWindow):
 
     @pyqtSlot()
     def change_hsv(self):
-        if self.imgHsv is None:
-            self.imgHsv = convertRgbToHsv(self.img)
+        imgHsv = convertRgbToHsv(self.img)
         self.imgColorChanging = changeHsv(
-            self.imgHsv,
+            imgHsv,
             self.sliderH.value() / 360,
             self.sliderS.value() / 100,
             self.sliderV.value() / 100)
@@ -116,7 +114,6 @@ class MyMainWindow(QMainWindow):
     @pyqtSlot()
     def on_btnColorApply_clicked(self):
         self.img = self.imgColorChanging
-        self.imgHsv = None
         self.sliderH.setValue(0)
         self.sliderS.setValue(0)
         self.sliderV.setValue(0)
