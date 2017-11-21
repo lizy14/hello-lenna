@@ -1,6 +1,7 @@
 import cv2
 import numpy
 from PyQt5.QtGui import QPixmap, QImage
+import os
 
 
 LOAD_FILTER = '''\
@@ -18,11 +19,22 @@ TIFF files (*.tiff *.tif)'''
 
 
 def load(filename):
-    return cv2.cvtColor(cv2.imread(filename), cv2.COLOR_BGR2RGB)
+    with open(filename, "rb") as f:
+        raw_bytes = bytearray(f.read())
+    numpyarray = numpy.asarray(raw_bytes, dtype=numpy.uint8)
+    img_bgr = cv2.imdecode(numpyarray, cv2.IMREAD_COLOR)
+    img_rgb = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2RGB)
+    return img_rgb
 
 
-def save(img, filename):
-    cv2.imwrite(filename, cv2.cvtColor(numpy.array(img, dtype='uint8'), cv2.COLOR_BGR2RGB))
+def save(img_rgb, filename):
+    ext = os.path.splitext(filename)[1]
+
+    img_bgr = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2RGB)
+    numpyarray = cv2.imencode(ext, img_bgr)[1]
+    raw_bytes = numpyarray.tobytes()
+    with open(filename, 'wb') as f:
+        f.write(bytearray(raw_bytes))
 
 
 def color(img, code):
