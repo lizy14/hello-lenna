@@ -37,10 +37,6 @@ def save(img_rgb, filename):
         f.write(bytearray(raw_bytes))
 
 
-def color(img, code):
-    return cv2.cvtColor(img, eval('cv2.'+code))
-
-
 def new_img(w, h):
     result = numpy.empty((h, w, 3), dtype='uint8')
     result.fill(255)
