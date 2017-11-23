@@ -17,7 +17,7 @@
    <string>Hello, Lenna</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QHBoxLayout" name="horizontalLayout_4">
+   <layout class="QVBoxLayout" name="verticalLayout_8">
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,0">
       <item>
@@ -32,7 +32,7 @@
         <item>
          <widget class="QToolBox" name="toolBox">
           <property name="currentIndex">
-           <number>1</number>
+           <number>2</number>
           </property>
           <widget class="QWidget" name="page_5">
            <property name="geometry">
@@ -40,7 +40,7 @@
              <x>0</x>
              <y>0</y>
              <width>300</width>
-             <height>476</height>
+             <height>506</height>
             </rect>
            </property>
            <attribute name="label">
@@ -177,7 +177,7 @@
              <x>0</x>
              <y>0</y>
              <width>300</width>
-             <height>476</height>
+             <height>506</height>
             </rect>
            </property>
            <attribute name="label">
@@ -331,12 +331,34 @@
              <x>0</x>
              <y>0</y>
              <width>300</width>
-             <height>476</height>
+             <height>506</height>
             </rect>
            </property>
            <attribute name="label">
             <string>Enhancement (Assignment 3)</string>
            </attribute>
+           <widget class="QSlider" name="sliderSvd">
+            <property name="geometry">
+             <rect>
+              <x>70</x>
+              <y>80</y>
+              <width>160</width>
+              <height>22</height>
+             </rect>
+            </property>
+            <property name="maximum">
+             <number>9</number>
+            </property>
+            <property name="minimum">
+             <number>0</number>
+            </property>
+            <property name="pageStep">
+             <number>1</number>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
           </widget>
           <widget class="QWidget" name="page_2">
            <property name="geometry">
@@ -344,7 +366,7 @@
              <x>0</x>
              <y>0</y>
              <width>300</width>
-             <height>476</height>
+             <height>506</height>
             </rect>
            </property>
            <attribute name="label">
@@ -357,7 +379,7 @@
              <x>0</x>
              <y>0</y>
              <width>300</width>
-             <height>476</height>
+             <height>506</height>
             </rect>
            </property>
            <attribute name="label">
@@ -370,7 +392,7 @@
              <x>0</x>
              <y>0</y>
              <width>300</width>
-             <height>476</height>
+             <height>506</height>
             </rect>
            </property>
            <attribute name="label">

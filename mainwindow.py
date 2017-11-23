@@ -9,6 +9,7 @@ import pyximport; import numpy; pyximport.install(setup_args={'include_dirs': nu
 import cv233io
 from assignment1 import *
 from assignment2 import *
+from assignment3 import *
 
 
 class MyMainWindow(QMainWindow):
@@ -205,3 +206,13 @@ class MyMainWindow(QMainWindow):
     @pyqtSlot()
     def on_btnCropCirc_clicked(self):
         self.crop(circular=True)
+
+    @pyqtSlot(int)
+    def on_sliderSvd_valueChanged(self, _):
+        upper = min(self.img.shape[:2])
+        value = 2 ** self.sliderSvd.value()
+        # [1, 512] maps to [1, upper]
+        k = (upper - 1) / 511
+        b = 1 - k
+        depth = int(k * value + b)
+        self.paint(svdCompression(self.img, depth))
