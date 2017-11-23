@@ -1,6 +1,9 @@
 from contextlib import contextmanager
 from timeit import default_timer
 
+import logging
+log = logging.getLogger(__name__)
+
 @contextmanager
 def elapsed_timer():
     start = default_timer()
@@ -13,6 +16,6 @@ def transformation(func):
     def wrapper(*func_args, **func_kwargs):
         with elapsed_timer() as elapsed:
             result = func(*func_args, **func_kwargs)
-            print(func.__name__ + " done at %.2f seconds" % elapsed())
+            log.info("{} {} done at {:.0f} milliseconds".format(func.__name__, func_args[1:], elapsed() * 1000))
         return result
     return wrapper

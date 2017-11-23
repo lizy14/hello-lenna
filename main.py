@@ -2,6 +2,13 @@ import sys
 from PyQt5.QtWidgets import QApplication
 from mainwindow import MyMainWindow
 
+import logging
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] [%(filename)s:%(lineno)s] %(message)s",
+    datefmt='%Y-%m-%d %H:%M:%S'
+)
+log = logging.getLogger(__name__)
 
 def main():
     app = QApplication(sys.argv)
