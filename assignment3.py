@@ -7,7 +7,7 @@ from utils import transformation
 import numpy as np
 
 
-def histogram(img, interval=4, channel=0):
+def histogram(img, interval=1, channel=0):
     '''
     channel: 0 for all, 1 for R, 2 for G, 3 for B
     '''
@@ -27,7 +27,7 @@ def histogram(img, interval=4, channel=0):
 
     return result
 
-
+@transformation
 def svdCompression(img, depth):
 
     def split_channels(img):

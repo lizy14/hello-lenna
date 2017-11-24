@@ -1,8 +1,7 @@
 from PyQt5.uic import loadUi
-from PyQt5.QtWidgets import QMainWindow, QFileDialog, QGraphicsScene, QWidget, QApplication
+from PyQt5.QtWidgets import QMainWindow, QGraphicsScene, QWidget
 from PyQt5.QtCore import pyqtSlot, QRectF, QPointF, QEvent, Qt
-from PyQt5.QtGui import QPen, QColor
-import PyQt5
+from PyQt5.QtGui import QPen
 
 import pyximport; import numpy; pyximport.install(setup_args={'include_dirs': numpy.get_include()})
 
@@ -31,12 +30,12 @@ class MyMainWindow(QMainWindow):
         self.graphicsView.viewport().installEventFilter(self)
 
         self.showMaximized()
-
         try:
             self.img = cv233io.load('lenna.tif')
             self.paint(self.img)
-        except:
+        except FileNotFoundError:
             pass
+        
 
     def eventFilter(self, source, event):
         if source is self.graphicsView.viewport() and self.graphicsView.scene() is not None:
@@ -138,16 +137,14 @@ class MyMainWindow(QMainWindow):
 
     @pyqtSlot()
     def on_actionOpen_triggered(self):
-        filename = '' or QFileDialog.getOpenFileName(
-            self, filter=cv233io.LOAD_FILTER)[0]
+        filename = cv233io.get_filename_to_load(self)
         if filename:
             self.img = cv233io.load(filename)
             self.paint(self.img)
 
     @pyqtSlot()
     def on_actionSave_triggered(self):
-        filename = QFileDialog.getSaveFileName(
-            self, filter=cv233io.SAVE_FILTER)[0]
+        filename = cv233io.get_filename_to_save()
         if filename:
             cv233io.save(self.img, filename)
 

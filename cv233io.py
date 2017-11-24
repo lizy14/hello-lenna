@@ -1,7 +1,13 @@
+'''
+image I/O: encoded file <-> numpy array -> QPixmap
+'''
+
+import os
 import cv2
 import numpy
 from PyQt5.QtGui import QPixmap, QImage
-import os
+from PyQt5.QtWidgets import QFileDialog
+
 
 
 LOAD_FILTER = '''\
@@ -13,10 +19,18 @@ Windows bitmaps (*.bmp *.dib);;\
 JPEG files (*.jpeg *.jpg *.jpe);;\
 JPEG 2000 files (*.jp2);;\
 Portable Network Graphics (*.png);;\
-WebP (*.webp);;Portable image format (*.pbm *.pgm *.ppm);;\
+WebP (*.webp);;\
+Portable image format (*.pbm *.pgm *.ppm);;\
 Sun rasters (*.sr *.ras);;\
 TIFF files (*.tiff *.tif)'''
 
+def get_filename_to_load(parent):
+    return '' or QFileDialog.getOpenFileName(
+            parent, filter=LOAD_FILTER)[0]
+    
+def get_filename_to_save(parent):
+    return '' or QFileDialog.getSaveFileName(
+            parent, filter=SAVE_FILTER)[0]
 
 def load(filename):
     with open(filename, "rb") as f:
