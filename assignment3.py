@@ -7,25 +7,36 @@ from utils import transformation
 import numpy as np
 
 
-def histogram(img, interval=1, channel=0):
-    '''
-    channel: 0 for all, 1 for R, 2 for G, 3 for B
-    '''
-
+@transformation
+def histogramEqualization(img):
     w = img.shape[0]
     h = img.shape[1]
-    n = int(256 // interval)  # number of groups
-    result = np.zeros((n,), dtype='int32')
+    hist = histogram(img, channel=0) / w / h / 3
+    cum = np.cumsum(hist)
+    result = np.empty(img.shape)
     for y in range(h):
         for x in range(w):
-            if channel == 0:
-                pixel = img[y, x].mean()
-            else:
-                pixel = img[y, x, channel - 1]
-            group = int(pixel // interval)
-            result[group] += 1
-
+            for c in range(3):
+                result[y, x, c] = cum[img[y, x, c]] * 255
     return result
+
+
+    
+def histogram(img, channel=0):
+    ''' 
+    channel: -1 for gray, 0 for RGB, 1 for R, 2 for G, 3 for B
+    '''
+
+    if channel == 0:
+        pixels = img.flatten()
+    elif channel == -1:
+        pixels = np.mean(img, axis=2)
+    else:
+        pixels = img[:, :, channel - 1]
+
+    hist, _ = np.histogram(pixels, bins=256, range=(0, 255))
+    return hist
+
 
 @transformation
 def svdCompression(img, depth):

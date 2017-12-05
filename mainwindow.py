@@ -87,6 +87,23 @@ class MyMainWindow(QMainWindow):
             scene.addRect(rect, QPen(Qt.red, 3, Qt.DashLine, Qt.SquareCap))
         scene.setSceneRect(rect)
         self.graphicsView.setScene(scene)
+        self.paintHist(img)
+
+    def paintHist(self, img):
+        if self.toolBox.currentIndex() == 2: # hist widget visible
+            total = img.shape[0] * img.shape[1]
+            hist = histogram(img, channel=-1)
+
+            histscene = QGraphicsScene(self)
+            tallest = max(hist)
+            for i in range(256):
+                histscene.addLine(i, tallest, i, tallest - hist[i])
+            histscene.setSceneRect(0, 0, 256, tallest)
+            self.histView.setScene(histscene)
+            def autoScaleView(view):
+                rect = view.scene().sceneRect()
+                view.fitInView(rect)
+            autoScaleView(self.histView)
 
     # slots
     def connect_signals(self):
@@ -121,6 +138,10 @@ class MyMainWindow(QMainWindow):
         self.sliderS.setValue(0)
         self.sliderV.setValue(0)
         self.paint(self.img)
+
+    @pyqtSlot(int)
+    def on_toolBox_currentChanged(self, _):
+        self.paintHist(self.img)
 
     @pyqtSlot(int)
     def on_sliderHalftoneSpacing_valueChanged(self, spacing):
@@ -213,3 +234,8 @@ class MyMainWindow(QMainWindow):
         b = 1 - k
         depth = int(k * value + b)
         self.paint(svdCompression(self.img, depth))
+
+    @pyqtSlot()
+    def on_btnHistEqual_clicked(self):
+        self.img = histogramEqualization(self.img)
+        self.paint(self.img)

@@ -330,35 +330,115 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>300</width>
+             <width>302</width>
              <height>506</height>
             </rect>
            </property>
            <attribute name="label">
             <string>Enhancement (Assignment 3)</string>
            </attribute>
-           <widget class="QSlider" name="sliderSvd">
-            <property name="geometry">
-             <rect>
-              <x>70</x>
-              <y>80</y>
-              <width>160</width>
-              <height>22</height>
-             </rect>
-            </property>
-            <property name="maximum">
-             <number>9</number>
-            </property>
-            <property name="minimum">
-             <number>0</number>
-            </property>
-            <property name="pageStep">
-             <number>1</number>
-            </property>
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-           </widget>
+           <layout class="QVBoxLayout" name="verticalLayout_11">
+            <item>
+             <widget class="QGroupBox" name="groupBox_8">
+              <property name="title">
+               <string>Gray Scale</string>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_13">
+               <item>
+                <widget class="QComboBox" name="comboBox">
+                 <item>
+                  <property name="text">
+                   <string>Linear</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Logarithmic</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Exponential</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Gamma</string>
+                  </property>
+                 </item>
+                </widget>
+               </item>
+               <item>
+                <widget class="QGraphicsView" name="grayView"/>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QGroupBox" name="groupBox_7">
+              <property name="title">
+               <string>Histogram</string>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_12">
+               <item>
+                <widget class="QGraphicsView" name="histView"/>
+               </item>
+               <item>
+                <widget class="QPushButton" name="btnHistEqual">
+                 <property name="text">
+                  <string>Equalization</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="pushButton_2">
+                 <property name="text">
+                  <string>Specification</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QGroupBox" name="groupBox_6">
+              <property name="title">
+               <string>* SVD Compression </string>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_10">
+               <item>
+                <widget class="QSlider" name="sliderSvd">
+                 <property name="minimum">
+                  <number>0</number>
+                 </property>
+                 <property name="maximum">
+                  <number>9</number>
+                 </property>
+                 <property name="pageStep">
+                  <number>1</number>
+                 </property>
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
           </widget>
           <widget class="QWidget" name="page_2">
            <property name="geometry">
