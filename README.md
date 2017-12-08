@@ -81,3 +81,20 @@ Drag the sliders, then click `Apply`.
 ### Color Halftone
 
 Drag the slider, then click `Apply`.
+
+## Assignment 3
+
+### Direct Grayscale Transformation
+
+* Piecewise Linear
+* Gamma Correction
+
+
+Choose method `Linear` or `Gamma` from the combo box;
+Right click in the below area to add key point;
+Drag key point to adjust parameters;
+Click `Apply`.
+
+### Histogram Equalization
+
+Click `Equalize`.

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>980</width>
-    <height>770</height>
+    <width>1013</width>
+    <height>818</height>
    </rect>
   </property>
   <property name="contextMenuPolicy">
@@ -30,17 +30,30 @@
       <item>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>331</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
          <widget class="QToolBox" name="toolBox">
           <property name="currentIndex">
-           <number>2</number>
+           <number>6</number>
           </property>
           <widget class="QWidget" name="page_5">
            <property name="geometry">
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>300</width>
-             <height>506</height>
+             <width>331</width>
+             <height>504</height>
             </rect>
            </property>
            <attribute name="label">
@@ -176,8 +189,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>300</width>
-             <height>506</height>
+             <width>331</width>
+             <height>504</height>
             </rect>
            </property>
            <attribute name="label">
@@ -329,9 +342,9 @@
            <property name="geometry">
             <rect>
              <x>0</x>
-             <y>0</y>
-             <width>302</width>
-             <height>506</height>
+             <y>-82</y>
+             <width>310</width>
+             <height>592</height>
             </rect>
            </property>
            <attribute name="label">
@@ -345,7 +358,10 @@
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_13">
                <item>
-                <widget class="QComboBox" name="comboBox">
+                <widget class="QComboBox" name="comboGrayscale">
+                 <property name="currentIndex">
+                  <number>3</number>
+                 </property>
                  <item>
                   <property name="text">
                    <string>Linear</string>
@@ -369,7 +385,38 @@
                 </widget>
                </item>
                <item>
-                <widget class="QGraphicsView" name="grayView"/>
+                <widget class="QGraphicsView" name="mappingView">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>256</width>
+                   <height>256</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_3">
+                 <item>
+                  <widget class="QPushButton" name="btnResetGrayscale">
+                   <property name="text">
+                    <string>Reset</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="btnApplyGrayscale">
+                   <property name="text">
+                    <string>Apply</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
                </item>
               </layout>
              </widget>
@@ -381,44 +428,32 @@
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_12">
                <item>
-                <widget class="QGraphicsView" name="histView"/>
+                <widget class="QGraphicsView" name="histView">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>256</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                </widget>
                </item>
                <item>
                 <widget class="QPushButton" name="btnHistEqual">
                  <property name="text">
-                  <string>Equalization</string>
+                  <string>Equalize Histogram</string>
                  </property>
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="pushButton_2">
+                <widget class="QPushButton" name="btnHistGaussian">
                  <property name="text">
-                  <string>Specification</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </widget>
-            </item>
-            <item>
-             <widget class="QGroupBox" name="groupBox_6">
-              <property name="title">
-               <string>* SVD Compression </string>
-              </property>
-              <layout class="QVBoxLayout" name="verticalLayout_10">
-               <item>
-                <widget class="QSlider" name="sliderSvd">
-                 <property name="minimum">
-                  <number>0</number>
-                 </property>
-                 <property name="maximum">
-                  <number>9</number>
-                 </property>
-                 <property name="pageStep">
-                  <number>1</number>
-                 </property>
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
+                  <string>Match Histogram</string>
                  </property>
                 </widget>
                </item>
@@ -445,8 +480,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>300</width>
-             <height>506</height>
+             <width>331</width>
+             <height>504</height>
             </rect>
            </property>
            <attribute name="label">
@@ -458,8 +493,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>300</width>
-             <height>506</height>
+             <width>331</width>
+             <height>504</height>
             </rect>
            </property>
            <attribute name="label">
@@ -471,31 +506,60 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>300</width>
-             <height>506</height>
+             <width>331</width>
+             <height>504</height>
             </rect>
            </property>
            <attribute name="label">
             <string>Portrait Beautify (Assignment 6)</string>
            </attribute>
           </widget>
+          <widget class="QWidget" name="page_7">
+           <attribute name="label">
+            <string>Extra</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_14">
+            <item>
+             <widget class="QGroupBox" name="groupBox_6">
+              <property name="title">
+               <string>SVD Compression </string>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_10">
+               <item>
+                <widget class="QSlider" name="sliderSvd">
+                 <property name="minimum">
+                  <number>0</number>
+                 </property>
+                 <property name="maximum">
+                  <number>9</number>
+                 </property>
+                 <property name="pageStep">
+                  <number>1</number>
+                 </property>
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_4">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </widget>
          </widget>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeType">
-           <enum>QSizePolicy::Minimum</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>300</width>
-            <height>0</height>
-           </size>
-          </property>
-         </spacer>
         </item>
        </layout>
       </item>
@@ -508,7 +572,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>980</width>
+     <width>1013</width>
      <height>26</height>
     </rect>
    </property>

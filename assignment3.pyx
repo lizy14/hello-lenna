@@ -5,22 +5,33 @@ Assignment 3, histogram, gray level transformation
 import cv233io
 from utils import transformation
 import numpy as np
+from numpy cimport ndarray as array_t
+from numpy cimport uint8_t as uint8_t
 
 
 @transformation
-def histogramEqualization(img):
+def histogramEqualization(array_t[uint8_t, ndim=3] img):
     w = img.shape[0]
     h = img.shape[1]
     hist = histogram(img, channel=0) / w / h / 3
     cum = np.cumsum(hist)
-    result = np.empty(img.shape)
+    cdef array_t[uint8_t, ndim=3] result = cv233io.new_img(w, h)
     for y in range(h):
         for x in range(w):
             for c in range(3):
                 result[y, x, c] = cum[img[y, x, c]] * 255
     return result
 
-
+@transformation
+def grayscaleTransformation(array_t[uint8_t, ndim=3] img, _, mapping):
+    w = img.shape[0]
+    h = img.shape[1]
+    cdef array_t[uint8_t, ndim=3] result = cv233io.new_img(w, h)
+    for y in range(h):
+        for x in range(w):
+            for c in range(3):
+                result[y, x, c] = mapping[img[y, x, c]]
+    return result
     
 def histogram(img, channel=0):
     ''' 

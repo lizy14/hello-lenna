@@ -1,7 +1,7 @@
 from PyQt5.uic import loadUi
-from PyQt5.QtWidgets import QMainWindow, QGraphicsScene, QWidget
+from PyQt5.QtWidgets import QMainWindow, QGraphicsScene, QWidget, QGraphicsItem, QGraphicsEllipseItem
 from PyQt5.QtCore import pyqtSlot, QRectF, QPointF, QEvent, Qt
-from PyQt5.QtGui import QPen
+from PyQt5.QtGui import QPen, QPainterPath, QBrush
 
 import pyximport; import numpy; pyximport.install(setup_args={'include_dirs': numpy.get_include()})
 
@@ -9,7 +9,7 @@ import cv233io
 from assignment1 import *
 from assignment2 import *
 from assignment3 import *
-
+import numpy as np
 
 class MyMainWindow(QMainWindow):
     img = None
@@ -23,18 +23,28 @@ class MyMainWindow(QMainWindow):
     crop_end = None
     crop_mouse_down = False
 
+    grayscaleMapping = np.arange(256)
+    grayscaleTransforming = None
+    mappingPathItem = None
+
     def __init__(self):
         super(MyMainWindow, self).__init__()
         loadUi('mainwindow.ui', self)
         self.connect_signals()
         self.graphicsView.viewport().installEventFilter(self)
+        self.mappingView.viewport().installEventFilter(self)
 
         self.showMaximized()
+
+
+    def showEvent(self, ev):
         try:
             self.img = cv233io.load('lenna.tif')
             self.paint(self.img)
         except FileNotFoundError:
             pass
+
+        return QMainWindow.showEvent(self, ev)
         
 
     def eventFilter(self, source, event):
@@ -72,6 +82,16 @@ class MyMainWindow(QMainWindow):
                     scene = self.graphicsView.scene()
                     scene.removeItem(self.crop_rect_graphics_item)
 
+        elif source is self.mappingView.viewport() and self.mappingView.scene() is not None:
+            if event.type() == QEvent.MouseButtonPress and event.button() == Qt.RightButton:
+                p = self.mappingView.mapToScene(event.pos())
+                r = 5
+                item = self.mappingView.scene().addEllipse(-r, -r, 2 * r, 2 * r, brush=QBrush(Qt.red))
+                item.setPos(p)
+                item.setFlag(QGraphicsItem.ItemIsMovable)
+                self.updateMapping()
+            
+        
         return QWidget.eventFilter(self, source, event)
 
     # I/O helpers
@@ -140,8 +160,9 @@ class MyMainWindow(QMainWindow):
         self.paint(self.img)
 
     @pyqtSlot(int)
-    def on_toolBox_currentChanged(self, _):
+    def on_toolBox_currentChanged(self, index):
         self.paintHist(self.img)
+        self.updateMapping()
 
     @pyqtSlot(int)
     def on_sliderHalftoneSpacing_valueChanged(self, spacing):
@@ -239,3 +260,95 @@ class MyMainWindow(QMainWindow):
     def on_btnHistEqual_clicked(self):
         self.img = histogramEqualization(self.img)
         self.paint(self.img)
+
+    def resetMappingScene(self):
+        mappingscene = QGraphicsScene(self)
+        mappingscene.setSceneRect(0, 0, 256, 256)
+        mappingscene.changed.connect(self.updateMapping)
+        self.mappingView.setScene(mappingscene)
+        def autoScaleView(view):
+            rect = view.scene().sceneRect()
+            view.fitInView(rect)
+        autoScaleView(self.mappingView)
+
+    @pyqtSlot()
+    def on_btnResetGrayscale_clicked(self):
+        self.resetMappingScene()
+        self.updateMapping()
+
+    cached_keypoints = None
+    cached_method = None
+    def updateMapping(self):
+        if self.toolBox.currentIndex() == 2: # widget visible
+
+            if self.mappingView.scene() is None:
+                self.resetMappingScene()
+            
+            mappingscene = self.mappingView.scene()
+
+            keypoints = [item.scenePos() for item in mappingscene.items() if isinstance(item, QGraphicsEllipseItem)]
+            keypoints.sort(key=lambda p: p.x())
+            
+            method = self.comboGrayscale.currentText()
+            print(keypoints)
+            if method == self.cached_method and keypoints == self.cached_keypoints:
+                return
+            self.cached_keypoints = keypoints
+            self.cached_method = method
+
+            # update grayscaleMapping
+            try:
+                if method == 'Linear':
+                    keypoints = [[p.x(), 256 - p.y()]for p in keypoints]
+                    keypoints.insert(0, [0, 0])
+                    keypoints.append([255, 255])
+                    self.grayscaleMapping = np.interp(
+                        np.arange(256), 
+                        [p[0] for p in keypoints],
+                        [p[1] for p in keypoints])
+                else:
+                    self.grayscaleMapping = np.arange(256)
+                    # log, exp, gamma need exactly one point
+                    if len(keypoints) != 1:
+                        pass
+                    else:
+                        p = keypoints[0]
+                        x0 = p.x()
+                        y0 = 256 - p.y()
+                        if method == 'Logarithmic':
+                            pass
+                        elif method == 'Exponential':
+                            pass
+                        elif method == 'Gamma':
+                            gamma = np.log(y0 / 256) / np.log(x0 / 256)
+                            self.grayscaleMapping = 256 * (self.grayscaleMapping / 256) ** gamma
+            except Exception:
+               self.grayscaleMapping = np.arange(256)
+
+            path = QPainterPath()
+            for i in range(0, 256):
+                if i == 0:
+                    path.moveTo(0, 255 - self.grayscaleMapping[0])
+                else:
+                    path.lineTo(i, 255 - self.grayscaleMapping[i])
+            
+            if self.mappingPathItem is not None:
+                mappingscene.removeItem(self.mappingPathItem)
+            self.mappingPathItem = mappingscene.addPath(path)
+
+            self.grayscaleTransforming = grayscaleTransformation(self.img, 0, self.grayscaleMapping)
+            self.paint(self.grayscaleTransforming)
+
+
+
+        
+    @pyqtSlot()
+    def on_btnApplyGrayscale_clicked(self):
+        if self.grayscaleTransforming is not None:
+            self.img = self.grayscaleTransforming
+        self.paint(self.img)
+
+
+    @pyqtSlot(str)
+    def on_comboGrayscale_currentTextChanged(self, _):
+        self.updateMapping()
