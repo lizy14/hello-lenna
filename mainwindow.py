@@ -1,5 +1,5 @@
 from PyQt5.uic import loadUi
-from PyQt5.QtWidgets import QMainWindow, QGraphicsScene, QWidget, QGraphicsItem, QGraphicsEllipseItem
+from PyQt5.QtWidgets import QMainWindow, QGraphicsScene, QWidget, QGraphicsItem, QGraphicsEllipseItem, QMessageBox
 from PyQt5.QtCore import pyqtSlot, QRectF, QPointF, QEvent, Qt
 from PyQt5.QtGui import QPen, QPainterPath, QBrush
 
@@ -9,6 +9,7 @@ import cv233io
 from assignment1 import *
 from assignment2 import *
 from assignment3 import *
+from assignment4 import *
 import numpy as np
 
 class MyMainWindow(QMainWindow):
@@ -351,3 +352,27 @@ class MyMainWindow(QMainWindow):
     @pyqtSlot(str)
     def on_comboGrayscale_currentTextChanged(self, _):
         self.updateMapping()
+
+    @pyqtSlot()
+    def on_btnMedFilt_clicked(self):
+        kernel_size = self.sliderMedFilt.value()
+        if kernel_size % 2 != 1 or kernel_size < 0:
+            QMessageBox.critical(self, "Bad kernel size", "Kernel size expected to be an odd positive integer.")
+        self.img = medianFilter(self.img, kernel_size)
+        self.paint(self.img)
+    
+    @pyqtSlot()
+    def on_btnGaussianFilter_clicked(self):
+        sigma = self.sliderGaussianFilterSigma.value()
+        self.img = gaussianFilter(self.img, sigma)
+        self.paint(self.img)
+        
+    @pyqtSlot()
+    def on_btnSharpen_clicked(self):
+        self.img = sharpen(self.img)
+        self.paint(self.img)
+
+    @pyqtSlot()
+    def on_btnSnow_clicked(self):
+        self.img = snow(self.img)
+        self.paint(self.img)

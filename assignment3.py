@@ -3,7 +3,7 @@ Assignment 3, histogram, gray level transformation
 '''
 
 import cv233io
-from utils import transformation
+from utils import transformation, split_channels, concat_channels, clip_to_byte
 import numpy as np
 
 
@@ -37,15 +37,7 @@ def histogram(img, channel=0):
 @transformation
 def svdCompression(img, depth):
 
-    def split_channels(img):
-        return img[:, :, 0], img[:, :, 1], img[:, :, 2]
 
-    def concat_channels(r, g, b):
-        rgb = (r[..., np.newaxis], g[..., np.newaxis], b[..., np.newaxis])
-        return np.concatenate(rgb, axis=-1)
-
-    def clip_to_byte(a):
-        return np.minimum(np.maximum(a, 0), 255)
 
     def channel_svd_compression(bitmap, depth):
         U, Sd, Vt = np.linalg.svd(bitmap, full_matrices=True)

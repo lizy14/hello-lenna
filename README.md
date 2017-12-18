@@ -98,3 +98,15 @@ Click `Apply`.
 ### Histogram Equalization
 
 Click `Equalize`.
+
+## Assignment 4
+
+### Median Filter
+Specify filter size with slider and then click `Apply`.
+### Gaussian Blur
+Specify $\sigma$ of the underlying Gaussian distribution, then click `Apply`. Filter size defaults to $3\sigma$, since $(-3\sigma, 3\sigma)$ covers.
+### Sharpen 
+With Sobel operator, $g = f + 0.1\times G(f)$
+
+### Snow Effect
+Blend with screen mode the original image and a snow overlay, the latter of which produced by applying $\frac1k I_k$ filter to random-size and random-position white rectangles on black background.
