@@ -290,7 +290,6 @@ class MyMainWindow(QMainWindow):
             keypoints.sort(key=lambda p: p.x())
             
             method = self.comboGrayscale.currentText()
-            print(keypoints)
             if method == self.cached_method and keypoints == self.cached_keypoints:
                 return
             self.cached_keypoints = keypoints
@@ -336,7 +335,7 @@ class MyMainWindow(QMainWindow):
                 mappingscene.removeItem(self.mappingPathItem)
             self.mappingPathItem = mappingscene.addPath(path)
 
-            self.grayscaleTransforming = grayscaleTransformation(self.img, 0, self.grayscaleMapping)
+            self.grayscaleTransforming = grayscaleTransformation(self.img, self.grayscaleMapping)
             self.paint(self.grayscaleTransforming)
 
 
