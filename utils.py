@@ -30,3 +30,9 @@ def concat_channels(r, g, b):
 
 def clip_to_byte(a):
     return np.minimum(np.maximum(a, 0), 255)
+
+def apply_channelwise(img, operator):
+    return concat_channels(*map(
+        operator,
+        split_channels(img)
+    ))

@@ -60,11 +60,12 @@ def applyKernelFilter(img, kernel):
     height = img.shape[0]
     width = img.shape[1]
 
-    padded = concat_channels(*map(
+    padded = apply_channelwise(
+        img, 
         lambda channel: 
-            np.pad(channel, (half_kernel_size, half_kernel_size), 'edge'), 
-        split_channels(img)
-    )).astype(np.uint8)
+            np.pad(channel, (half_kernel_size, half_kernel_size), 'edge') 
+    ).astype(np.uint8)
+
     result = np.zeros((width + kernel_size - 1, height + kernel_size - 1, 3))
     result = cv233io.new_img(width, height)
 
@@ -96,11 +97,11 @@ def medianFilter(img, kernel_size):
     width = shape[1]
 
     result = cv233io.new_img(width, height)
-    padded = concat_channels(*map(
+    padded = apply_channelwise(
+        img, 
         lambda channel: 
-            np.pad(channel, (half_kernel_size, half_kernel_size), 'edge'), 
-        split_channels(img)
-    ))
+            np.pad(channel, (half_kernel_size, half_kernel_size), 'edge')
+    )
 
     '''
      01234567
