@@ -6,6 +6,8 @@ DJANGO
 import cv233io
 from utils import *
 import numpy as np
+import logging
+log = logging.getLogger(__name__)
 
 @transformation
 def gaussianFilter(img, sigma):
@@ -69,8 +71,9 @@ def applyKernelFilter(img, kernel):
     result = np.zeros((width + kernel_size - 1, height + kernel_size - 1, 3))
     result = cv233io.new_img(width, height)
 
-    for y in range(height):   
-        print(y) 
+    for y in range(height):
+        if y % 10 == 0:
+            log.debug('applyKernelFilter on line {}'.format(y))
         for x in range(width):
             original = padded[
                 y: y + kernel_size,

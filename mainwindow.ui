@@ -45,7 +45,7 @@
         <item>
          <widget class="QToolBox" name="toolBox">
           <property name="currentIndex">
-           <number>3</number>
+           <number>4</number>
           </property>
           <widget class="QWidget" name="page_5">
            <property name="geometry">
@@ -601,6 +601,94 @@
            <attribute name="label">
             <string>Frequency Filter (Assignment 5)</string>
            </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_16">
+            <item>
+             <layout class="QFormLayout" name="formLayout_3">
+              <item row="2" column="1">
+               <widget class="QSlider" name="sliderFreqParam">
+                <property name="minimum">
+                 <number>0</number>
+                </property>
+                <property name="maximum">
+                 <number>80</number>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QComboBox" name="comboFreqDirection">
+                <item>
+                 <property name="text">
+                  <string>Blur</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Sharpen</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QComboBox" name="comboFreqFilter">
+                <item>
+                 <property name="text">
+                  <string>Ideal</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Gaussian</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item row="0" column="0">
+               <widget class="QLabel" name="label_7">
+                <property name="text">
+                 <string>Direction</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="label_8">
+                <property name="text">
+                 <string>Filter</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QLabel" name="label_9">
+                <property name="text">
+                 <string>Strength</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btnFreqFilter">
+              <property name="text">
+               <string>Apply Frequency Filter</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_6">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
           </widget>
           <widget class="QWidget" name="page_4">
            <property name="geometry">

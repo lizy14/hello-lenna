@@ -10,6 +10,7 @@ from assignment1 import *
 from assignment2 import *
 from assignment3 import *
 from assignment4 import *
+from assignment5 import *
 import numpy as np
 
 class MyMainWindow(QMainWindow):
@@ -17,6 +18,7 @@ class MyMainWindow(QMainWindow):
     imgRotating = None
     imgColorChanging = None
     imgColorHalftone = None
+    imgFreqFilter = None
 
     crop_rect_graphics_item = None
     crop_rect = None
@@ -41,7 +43,7 @@ class MyMainWindow(QMainWindow):
     def showEvent(self, ev):
         try:
             self.img = cv233io.load('lenna.tif')
-            self.paint(self.img)
+            self.paint(self.img)            
         except FileNotFoundError:
             pass
 
@@ -131,6 +133,9 @@ class MyMainWindow(QMainWindow):
         self.sliderH.valueChanged.connect(self.change_hsv)
         self.sliderS.valueChanged.connect(self.change_hsv)
         self.sliderV.valueChanged.connect(self.change_hsv)
+        self.comboFreqDirection.currentTextChanged.connect(self.updateFreqFilter)
+        self.comboFreqFilter.currentTextChanged.connect(self.updateFreqFilter)
+        self.sliderFreqParam.valueChanged.connect(self.updateFreqFilter)
         self.actionExit.triggered.connect(self.close)
 
     @pyqtSlot(int)
@@ -375,4 +380,24 @@ class MyMainWindow(QMainWindow):
     @pyqtSlot()
     def on_btnSnow_clicked(self):
         self.img = snow(self.img)
+        self.paint(self.img)
+    
+    @pyqtSlot()        
+    def updateFreqFilter(self):
+        method = self.comboFreqFilter.currentText()
+        param = self.sliderFreqParam.value()
+        direction = self.comboFreqDirection.currentText()
+        if direction == 'Blur':
+            operator = freqBlur
+        elif direction == 'Sharpen':
+            operator = lambda *args, **kwargs: histogramEqualization(freqSharpen(*args, **kwargs))
+        else:
+            raise AssertionError('direction neither Blur nor Sharpen')
+        param = int(2. ** (9. - param / 10.))
+        self.imgFreqFilter = operator(self.img, method, param)
+        self.paint(self.imgFreqFilter)
+
+    @pyqtSlot()
+    def on_btnFreqFilter_clicked(self):
+        self.img = self.imgFreqFilter
         self.paint(self.img)

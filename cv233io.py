@@ -58,7 +58,9 @@ def new_img(w, h):
 
 
 def to_QPixmap(img):
-    img = numpy.array(img, dtype='uint8')
+    img = numpy.require(img, dtype=numpy.uint8, requirements='C')
+    assert img.ndim == 3, "not a 3-dimentional array"
+    assert img.shape[2] == 3, "not a 3-channal image"
     height, width, byteValue = img.shape
     byteValue = byteValue * width
     qImage = QImage(img, width, height, byteValue, QImage.Format_RGB888)

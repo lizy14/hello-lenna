@@ -110,3 +110,15 @@ With Sobel operator, $g = f + 0.1\times G(f)$
 
 ### Snow Effect
 Blend with screen mode the original image and a snow overlay, the latter of which produced by applying $\frac1k I_k$ filter to random-size and random-position white rectangles on black background.
+
+## Assignment 5
+
+Operate in freqency domain
+
+* Blur
+* Sharpen
+
+with filters
+
+* Ideal
+* Gaussian
