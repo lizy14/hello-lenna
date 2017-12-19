@@ -22,14 +22,14 @@ def gaussianFilter(img, sigma):
 @transformation
 def sharpen(img):
     SobelHorizontal = np.array([
-        [-1, -1, -1],
-        [-1,  9, -1],
-        [-1, -1, -1],
+        [-1, -2, -1],
+        [ 0,  0,  0],
+        [ 1,  2,  1],
     ])
     SobelVertical = np.array([
         [-1, 0, 1],
         [-2, 0, 2],
-        [-1, 2, 1]
+        [-1, 0, 1]
     ])
     grad = np.absolute(applyKernelFilter(img, SobelVertical)) + np.absolute(applyKernelFilter(img, SobelHorizontal))
     return clip_to_byte(img + 0.1 * grad)
