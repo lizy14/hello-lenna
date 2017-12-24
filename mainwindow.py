@@ -11,6 +11,7 @@ from assignment2 import *
 from assignment3 import *
 from assignment4 import *
 from assignment5 import *
+from assignment6 import *
 import numpy as np
 
 class MyMainWindow(QMainWindow):
@@ -19,6 +20,7 @@ class MyMainWindow(QMainWindow):
     imgColorChanging = None
     imgColorHalftone = None
     imgFreqFilter = None
+    imgPencil = None
 
     crop_rect_graphics_item = None
     crop_rect = None
@@ -401,3 +403,16 @@ class MyMainWindow(QMainWindow):
     def on_btnFreqFilter_clicked(self):
         self.img = self.imgFreqFilter
         self.paint(self.img)
+
+    @pyqtSlot()
+    def on_btnPencil_clicked(self):
+        self.img = self.imgPencil
+        self.paint(self.img)
+    
+    @pyqtSlot(int)
+    def on_sliderPencil_valueChanged(self, p):
+        if p == 0:
+            self.paint(self.img)
+        else:
+            self.imgPencil = pencil(self.img, p)
+            self.paint(self.imgPencil)

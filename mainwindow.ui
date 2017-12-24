@@ -45,7 +45,7 @@
         <item>
          <widget class="QToolBox" name="toolBox">
           <property name="currentIndex">
-           <number>4</number>
+           <number>5</number>
           </property>
           <widget class="QWidget" name="page_5">
            <property name="geometry">
@@ -700,8 +700,49 @@
             </rect>
            </property>
            <attribute name="label">
-            <string>Portrait Beautify (Assignment 6)</string>
+            <string>Artistic Effect (Assignment 6)</string>
            </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_17">
+            <item>
+             <widget class="QGroupBox" name="groupBox_11">
+              <property name="title">
+               <string>Pencil Sketch</string>
+              </property>
+              <layout class="QHBoxLayout" name="horizontalLayout_6">
+               <item>
+                <widget class="QSlider" name="sliderPencil">
+                 <property name="maximum">
+                  <number>50</number>
+                 </property>
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="btnPencil">
+                 <property name="text">
+                  <string>Apply</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_7">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
           </widget>
           <widget class="QWidget" name="page_7">
            <property name="geometry">

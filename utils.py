@@ -29,10 +29,16 @@ def concat_channels(r, g, b):
     return np.concatenate(rgb, axis=-1)
 
 def clip_to_byte(a):
-    return np.minimum(np.maximum(a, 0), 255)
+    return np.minimum(np.maximum(a, 0), 255).astype(np.uint8)
 
 def apply_channelwise(img, operator):
     return concat_channels(*map(
         operator,
         split_channels(img)
     ))
+
+def rgb_to_gray(rgb):
+    return rgb.mean(axis=2)
+
+def gray_to_rgb(gray):
+    return np.dstack((gray, gray, gray))
