@@ -194,7 +194,7 @@ class MyMainWindow(QMainWindow):
 
     @pyqtSlot()
     def on_actionSave_triggered(self):
-        filename = cv233io.get_filename_to_save()
+        filename = cv233io.get_filename_to_save(self)
         if filename:
             cv233io.save(self.img, filename)
 
