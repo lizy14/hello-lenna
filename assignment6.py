@@ -17,8 +17,8 @@ def pencil(img, param):
     return gray_to_rgb(img_blend)
 
 @transformation
-def dehaze(img):
-    (dark, rawt, refinedt, rawrad, rerad) = dehaze_internal(img)
+def dehaze(img, **kwargs):
+    (dark, rawt, refinedt, rawrad, rerad) = dehaze_internal(img, **kwargs)
     return rerad
 
 '''
@@ -145,8 +145,7 @@ def get_radiance(I, A, t):
     return (I - A) / tiledt + A  # CVPR09, eq.16
 
 
-def dehaze_internal(im, tmin=0.2, Amax=220, w=15, p=0.0001,
-           omega=0.95, guided=True, r=40, eps=1e-3):
+def dehaze_internal(im, **kwargs):
     """Dehaze the given RGB image.
 
     Parameters
@@ -163,8 +162,7 @@ def dehaze_internal(im, tmin=0.2, Amax=220, w=15, p=0.0001,
     recovered radiance with refined t.
     """
     I = np.asarray(im, dtype=np.float64)
-    Idark, A, rawt, refinedt = dehaze_raw(I, tmin, Amax, w, p,
-                                          omega, guided, r, eps)
+    Idark, A, rawt, refinedt = dehaze_raw(I, **kwargs)
     white = np.full_like(Idark, L - 1)
 
     def to_img(raw):
