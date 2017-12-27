@@ -52,8 +52,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>331</width>
-             <height>504</height>
+             <width>222</width>
+             <height>421</height>
             </rect>
            </property>
            <attribute name="label">
@@ -189,8 +189,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>331</width>
-             <height>504</height>
+             <width>231</width>
+             <height>290</height>
             </rect>
            </property>
            <attribute name="label">
@@ -343,7 +343,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>310</width>
+             <width>302</width>
              <height>592</height>
             </rect>
            </property>
@@ -480,8 +480,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>331</width>
-             <height>504</height>
+             <width>303</width>
+             <height>240</height>
             </rect>
            </property>
            <attribute name="label">
@@ -594,8 +594,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>331</width>
-             <height>504</height>
+             <width>207</width>
+             <height>144</height>
             </rect>
            </property>
            <attribute name="label">
@@ -730,6 +730,13 @@
              </widget>
             </item>
             <item>
+             <widget class="QPushButton" name="btnDehaze">
+              <property name="text">
+               <string>PushButton</string>
+              </property>
+             </widget>
+            </item>
+            <item>
              <spacer name="verticalSpacer_7">
               <property name="orientation">
                <enum>Qt::Vertical</enum>
@@ -749,8 +756,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>331</width>
-             <height>504</height>
+             <width>174</width>
+             <height>90</height>
             </rect>
            </property>
            <attribute name="label">

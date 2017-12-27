@@ -44,8 +44,9 @@ class MyMainWindow(QMainWindow):
 
     def showEvent(self, ev):
         try:
-            self.img = cv233io.load('lenna.tif')
-            self.paint(self.img)            
+            self.paint(dehaze(cv233io.load('tiananmen1.png')))
+            # self.img = cv233io.load('lenna.tif')
+            # self.paint(self.img)
         except FileNotFoundError:
             pass
 
@@ -416,3 +417,7 @@ class MyMainWindow(QMainWindow):
         else:
             self.imgPencil = pencil(self.img, p)
             self.paint(self.imgPencil)
+    
+    @pyqtSlot()
+    def on_btnDehaze_clicked(self):
+        self.paint(dehaze(self.img))
