@@ -12,14 +12,9 @@
             "pythonPath": "${config:python.pythonPath}",
             "program": "${workspaceRoot}/main.py",
             "cwd": "${workspaceRoot}",
-            "env": {},
-            "envFile": "${workspaceRoot}/.env",
             "debugOptions": [
-                "WaitOnAbnormalExit",
-                "WaitOnNormalExit",
                 "RedirectOutput"
             ],
-            "preLaunchTask": "build"
         }
     ]
 }

@@ -4,10 +4,18 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "build",
+            "label": "compile pyx",
             "type": "shell",
             "command": "python setup.py build_ext",
-            "problemMatcher": []
+            "problemMatcher": [],
+            "group": "build"
+        },
+        {
+            "label": "compile ui",
+            "type": "shell",
+            "command": "pyuic5 mainwindow.ui -o mainwindow_ui.py",
+            "problemMatcher": [],
+            "group": "build"
         }
     ]
 }

@@ -14,7 +14,21 @@ from assignment5 import *
 from assignment6 import *
 import numpy as np
 
-class MyMainWindow(QMainWindow):
+try:
+    from mainwindow_ui import Ui_mainWindow
+    class MyMainWindowBase(QMainWindow, Ui_mainWindow):
+        def __init__(self):
+            super(MyMainWindowBase, self).__init__()
+            self.setupUi(self)
+            
+            
+except ImportError:
+    class MyMainWindowBase(QMainWindow):
+        def __init__(self):
+            super(MyMainWindowBase, self).__init__()
+            loadUi('mainwindow.ui', self)
+
+class MyMainWindow(MyMainWindowBase):
     img = None
     imgRotating = None
     imgColorChanging = None
@@ -34,7 +48,7 @@ class MyMainWindow(QMainWindow):
 
     def __init__(self):
         super(MyMainWindow, self).__init__()
-        loadUi('mainwindow.ui', self)
+
         self.connect_signals()
         self.graphicsView.viewport().installEventFilter(self)
         self.mappingView.viewport().installEventFilter(self)
@@ -44,9 +58,10 @@ class MyMainWindow(QMainWindow):
 
     def showEvent(self, ev):
         try:
-            self.paint(dehaze(cv233io.load('tiananmen1.png')))
+            # self.paint(dehaze(cv233io.load('tiananmen1.png'), tmin=0.5, Amax=220))
             # self.img = cv233io.load('lenna.tif')
             # self.paint(self.img)
+            pass
         except FileNotFoundError:
             pass
 
